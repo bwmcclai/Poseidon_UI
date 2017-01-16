@@ -37,7 +37,7 @@
                 var value = data.split("=")[1]
                 
                 //this would only work if I am placing the data into an innerHTML (might have to split it out later)
-                document.getElementById(element).innerHTML = value; 
+                //document.getElementById(element).innerHTML = value; 
 				if (element == "CPU_Temp")
 				{
 					//document.getElementById(element).val = value; 
@@ -57,11 +57,24 @@
 					document.getElementById("Disk_Space_Label").innerHTML = value; 
 
 				}
+
+				if (element == "Pi_Camera_Supported" || element == "Pi_Camera_Detected")
+				{
+
+					if (value == "1") {
+						$("#" + element).html('<span class="label label-info label-form">Success</span>');					
+					}
+					else {
+						$("#" + element).html('<span class="label label-danger label-form">Fail</span>');
+					}
+					
+
+				}
 				
 
 
 
-		document.getElementById('uri').innerHTML = wsUri;             
+		
 		//ws.send(JSON.stringify({data:data}));
             }
             ws.onopen = function() {
@@ -103,14 +116,14 @@
                     </li>
                     
                     <li class="xn-title">Navigation</li>
-                    <li class="active">
+                    <li>
                         <a href="index.html"><span class="fa fa-desktop"></span> <span class="xn-text">Dashboard</span></a>
 						                         
                     </li>                    
-                    <li class="xn-openable">
+                    <li class="xn-openable active">
                         <a href="#"><span class="fa fa-cogs"></span> <span class="xn-text">Systems</span></a>
                         <ul>
-                            <li><a href="#"><span class="fa fa-image"></span> Raspberry Pi</a></li>
+                            <li class="active"><a href="#"><span class="fa fa-image"></span> Raspberry Pi</a></li>
                             <li><a href="index.html"><span class="fa fa-user"></span> Pixhawk</a></li>
                             <li><a href="index.html"><span class="fa fa-users"></span> ROV</a></li>
 							<li><a href="index.html"><span class="fa fa-gamepad"></span> Controls</a></li>              
@@ -202,7 +215,86 @@
 						</div>
 						
                     </div>
-                
+					
+					<div class="row">
+						<div class="col-md-6">   
+
+								<div class="panel panel-default panel-hidden-controls">
+									<div class="panel-heading">
+										<h3 class="panel-title"><span class="fa fa-info-circle"></span> System Information</h3>                                
+										<ul class="panel-controls">
+											<li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>
+											<li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
+											<li><a href="#" class="panel-remove"><span class="fa fa-times"></span></a></li>
+										</ul>                                   
+									</div>
+									<div class="panel-body">
+										<form action="#" role="form" class="form-horizontal">
+											<div class="form-group">
+												<label class="col-md-4 control-label text-left">OS</label>
+												<div class="col-md-4">
+													<label id=Pi_OS>
+														TBD
+														<span></span>
+													</label>                                            
+												</div>
+												<div class="col-md-4">
+													<span class="help-block">Current OS on Raspberry Pi</span>
+												</div>
+											</div>       
+											   											
+										<br/>	
+											
+										</form>
+									</div>
+								</div>
+
+							</div>
+							<!-- END SETTINGS WIDGET -->
+						
+						
+							<div class="col-md-6">   
+
+									<div class="panel panel-default panel-hidden-controls">
+										<div class="panel-heading">
+											<h3 class="panel-title"><span class="fa fa-camera"></span> Camera Status</h3>                                
+											<ul class="panel-controls">
+												<li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>
+												<li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
+												<li><a href="#" class="panel-remove"><span class="fa fa-times"></span></a></li>
+											</ul>                                   
+										</div>
+										<div class="panel-body">
+											<form action="#" role="form" class="form-horizontal">
+																					
+												<div class="form-group">
+													<label class="col-md-4 control-label text-left">Camera Supported</label>
+													<div class="col-md-4" id="Pi_Camera_Supported">
+														<!-- success or fail will go here -->
+														
+													</div>
+													<div class="col-md-4">
+														<span class="help-block">Is the camera supported?</span>
+													</div>                                        
+												</div>
+												<div class="form-group">
+													<label class="col-md-4 control-label text-left">Camera Detected</label>
+													<div class="col-md-4" id="Pi_Camera_Detected">
+														<!-- success or fail will go here -->
+													</div>
+													<div class="col-md-4">
+														<span class="help-block">Is the camera detected?</span>
+													</div>                                        
+												</div>
+												
+											</form>
+										</div>
+									</div>
+
+								</div>
+								<!-- END SETTINGS WIDGET -->
+							</div>
+						</div>
                 </div>
                 <!-- END PAGE CONTENT WRAPPER -->                
             </div>            
