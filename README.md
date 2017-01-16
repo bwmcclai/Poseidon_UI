@@ -52,7 +52,7 @@ If everything worked properly, you should now be able to navigate to 192.168.2.2
 
 You can now add new modules to node-red and extend the functionality.  Currently, there is (1) additional packages that are in use.  
 To install, first navigate to the node-red directory.  
-`cd ~/.node-red`
+`cd ~/.node-red`  
 Then add the node-red-contrib-os package.  
 `npm install node-red-contrib-os`
 
