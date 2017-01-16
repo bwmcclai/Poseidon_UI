@@ -19,10 +19,10 @@ The anticipated features are :
 Eventually everything will be wrapped up nicely into an install package for the Raspberry Pi, but for now initial setup is done manually until we get further in the build.
 
 ####NGINX Web Server
-Nginx is used to serve the files contained in this repository. First, SSH into the RPi and install nginx:
+Nginx is used to serve the files contained in this repository. First, SSH into the RPi and install nginx.
 `sudo apt-get install nginx`
 
-Nginx will start on boot, but if you want to run it now without rebooting then enter:
+Nginx will start on boot, but if you want to run it now without rebooting, enter the following code.
 `sudo /etc/init.d/nginx start`
 
 For more nginx information, visit the following page: https://www.raspberrypi.org/documentation/remote-access/web-server/nginx.md
