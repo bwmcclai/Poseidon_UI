@@ -71,6 +71,12 @@
 
 				}
 				
+				if (element == "Pi_OS")
+				{
+					$("#" + element).html('   ' + value + '   ');
+
+				}
+				
 
 
 
@@ -229,23 +235,9 @@
 										</ul>                                   
 									</div>
 									<div class="panel-body">
-										<form action="#" role="form" class="form-horizontal">
-											<div class="form-group">
-												<label class="col-md-4 control-label text-left">OS</label>
-												<div class="col-md-4">
-													<label id=Pi_OS>
-														TBD
-														<span></span>
-													</label>                                            
-												</div>
-												<div class="col-md-4">
-													<span class="help-block">Current OS on Raspberry Pi</span>
-												</div>
-											</div>       
-											   											
-										<br/>	
-											
-										</form>
+										<ul class="list-group border-bottom">
+                                        <li class="list-group-item">Raspberry Pi Operating System<span class="badge badge-success" id="Pi_OS">....</span></li>
+										</ul> 
 									</div>
 								</div>
 
