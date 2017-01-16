@@ -1,5 +1,5 @@
 # Poseidon_UI
-Raspberry Pi Hosted UI for Blue Robotics ROV
+Raspberry Pi Hosted UI for Blue Robotics ROV. This project is currently under development. To join in discussion, check us out on gitter below.
 
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Poseidon_UI/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
