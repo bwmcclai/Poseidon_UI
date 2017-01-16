@@ -60,6 +60,9 @@ Then add the node-red-contrib-os package.
 
 Note:  you will need to restart the Node-Red server once you add the new package for it to show up.
 
+######Add Poseidon Flow to Node-Red
+The flow for the UI can be found in the flow.txt document.  Simply copy the contents from the txt file and import them into Node-Red via the UI at 192.168.2.2:1880
+
 
 
 
