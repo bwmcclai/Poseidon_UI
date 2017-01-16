@@ -17,6 +17,9 @@ The anticipated features are :
 - Configuration of Sensors (sonar connected to USB, etc.)
 - Download of QGC binaries for in-field installs
 
+Currently completed features are:  
+- Raspberry Pi Status (cpu, gpu, temp, storage, software versions)
+
 ##Setup Guide:
 Eventually everything will be wrapped up nicely into an install package for the Raspberry Pi, but for now initial setup is done manually until we get further in the build.
 
