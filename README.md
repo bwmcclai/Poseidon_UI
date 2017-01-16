@@ -1,7 +1,7 @@
 # Poseidon_UI
 Raspberry Pi Hosted UI for Blue Robotics ROV
 
-
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Poseidon_UI/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ##About:
 This is an early build of a user interface for a ROV that is hosted on the Raspberry Pi. This UI is designed around the use of the ArduSub software and Blue Robotics ROV builds.
