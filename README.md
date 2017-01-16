@@ -20,7 +20,9 @@ Eventually everything will be wrapped up nicely into an install package for the 
 
 ####NGINX Web Server
 Nginx is used to serve the files contained in this repository. First, SSH into the RPi and install nginx:
-'sudo apt-get install nginx'
+'''
+sudo apt-get install nginx
+'''
 
 Nginx will start on boot, but if you want to run it now without rebooting then enter:
 'sudo /etc/init.d/nginx start'
