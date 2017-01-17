@@ -62,9 +62,12 @@ Then add the node-red-contrib-os package.
 `npm install node-red-contrib-os`
 
 Note:  you will need to restart the Node-Red server once you add the new package for it to show up.
+`cd ~/.node-red` if you aren't already there
+`node-red-stop`
+`node-red-start`
 
 ######Add Poseidon Flow to Node-Red
-The flow for the UI can be found in the flow.txt document.  Simply copy the contents from the txt file and import them into Node-Red via the UI at 192.168.2.2:1880
+The flow for the UI can be found in the flow.txt document in this repository.  Simply copy the contents from the txt file and import them into Node-Red via the UI at 192.168.2.2:1880
 
 
 
