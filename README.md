@@ -45,7 +45,7 @@ In SSH, cd to the default nginx www folder:
 Then clone this repository to the folder:  
 `sudo git clone https://github.com/bwmcclai/Poseidon_UI.git`
 
-You should now be able to navigate again to 192.168.2.2 and see the UI properly.  The next section deals with the data backend.
+You should now be able to navigate again to 192.168.2.2 and see the UI properly. The files should be in the /var/www/html/ directory and not /var/www/html/Poseidon_UI.  If they are, you will need to navigate to 192.168.2.2/Poseidon_UI in the browser or move the files into the root. The next section deals with the data backend.
 
 ####Node-Red
 Node-Red is the backend of the UI and provides bi-directional communication.  It can be used to expand the functionality of the UI and allow users to customize the code for their application from within the web browser.
