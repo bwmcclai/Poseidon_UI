@@ -67,7 +67,14 @@ Note:  you will need to restart the Node-Red server once you add the new package
 `node-red-start`
 
 ######Add Poseidon Flow to Node-Red
-The flow for the UI can be found in the flow.txt document in this repository.  Simply copy the contents from the txt file and import them into Node-Red via the UI at 192.168.2.2:1880
+In the Node-Red UI at 192.168.2.2:1880, open the menu with the button in the top left. Click on Import > Clipboard.  Then, copy the contents from the flow.txt file in this repository and paste it in the window and click 'Import'.  
+
+Two Flow tabs should be created.  Click the 'Deploy' button to make the flow live.  
+
+Data should now be coming through to the Poseidon UI page.
+
+Good luck!
+
 
 
 
