@@ -42,19 +42,21 @@
 				{
 					//document.getElementById(element).val = value; 
 					$('#CPU_Temp').val(value).trigger('change');
-					document.getElementById("CPU_Temp_Label").innerHTML = value; 
+					document.getElementById("CPU_Temp_Label").innerHTML = value;
+					$("#CPU_Temp_Sub_Label").html('Live Value');
 				}
 				if (element == "CPU_Mem")
 				{
 					$('#CPU_Mem').val(value).trigger('change');
 					document.getElementById("CPU_Mem_Label").innerHTML = value; 
-
+					$("#CPU_Mem_Sub_Label").html('Live Value');
 				}
 				
 				if (element == "Disk_Space")
 				{
 					$('#Disk_Space').val(value).trigger('change');
-					document.getElementById("Disk_Space_Label").innerHTML = value; 
+					document.getElementById("Disk_Space_Label").innerHTML = value;
+					$("#Disk_Space_Sub_Label").html('Root Partition');
 
 				}
 
@@ -187,7 +189,7 @@
                                 <div class="widget-data">
                                     <div class="widget-big-int"><span class="num-count" id="CPU_Temp_Label">0</span> &deg;F</div>
                                     <div class="widget-title">Core Temp</div>
-                                    <div class="widget-subtitle">Live Value</div>   							
+                                    <div class="widget-subtitle" id="CPU_Temp_Sub_Label">Not Connected</div>   							
                                 </div>                            
                                                       
                             </div>     
@@ -200,7 +202,7 @@
                                 <div class="widget-data">
                                     <div class="widget-big-int"><span class="num-count" id="CPU_Mem_Label">0</span>%</div>
                                     <div class="widget-title">CPU Memory</div>
-                                    <div class="widget-subtitle">Live Value</div>                                
+                                    <div class="widget-subtitle" id="CPU_Mem_Sub_Label">Not Connected</div>                                
                                 </div>                            
                                                       
                             </div>     
@@ -214,7 +216,7 @@
                                 <div class="widget-data">
                                     <div class="widget-big-int"><span class="num-count" id="Disk_Space_Label">0</span>%</div>
                                     <div class="widget-title">Disk Space Used</div>
-                                    <div class="widget-subtitle">Root Partition</div>                                
+                                    <div class="widget-subtitle" id="Disk_Space_Sub_Label">Not Connected</div>                                
                                 </div>                            
                                                       
                             </div>     
@@ -245,49 +247,80 @@
 							<!-- END SETTINGS WIDGET -->
 						
 						
-							<div class="col-md-6">   
+						<div class="col-md-6">   
 
-									<div class="panel panel-default panel-hidden-controls">
-										<div class="panel-heading">
-											<h3 class="panel-title"><span class="fa fa-camera"></span> Camera Status</h3>                                
-											<ul class="panel-controls">
-												<li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>
-												<li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
-												<li><a href="#" class="panel-remove"><span class="fa fa-times"></span></a></li>
-											</ul>                                   
-										</div>
-										<div class="panel-body">
-											<form action="#" role="form" class="form-horizontal">
-																					
-												<div class="form-group">
-													<label class="col-md-4 control-label text-left">Camera Supported</label>
-													<div class="col-md-4" id="Pi_Camera_Supported">
-														<!-- success or fail will go here -->
-														
-													</div>
-													<div class="col-md-4">
-														<span class="help-block">Is the camera supported?</span>
-													</div>                                        
-												</div>
-												<div class="form-group">
-													<label class="col-md-4 control-label text-left">Camera Detected</label>
-													<div class="col-md-4" id="Pi_Camera_Detected">
-														<!-- success or fail will go here -->
-													</div>
-													<div class="col-md-4">
-														<span class="help-block">Is the camera detected?</span>
-													</div>                                        
-												</div>
-												
-											</form>
-										</div>
-									</div>
-
+							<div class="panel panel-default panel-hidden-controls">
+								<div class="panel-heading">
+									<h3 class="panel-title"><span class="fa fa-camera"></span> Camera Status</h3>                                
+									<ul class="panel-controls">
+										<li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>
+										<li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
+										<li><a href="#" class="panel-remove"><span class="fa fa-times"></span></a></li>
+									</ul>                                   
 								</div>
-								<!-- END SETTINGS WIDGET -->
+								<div class="panel-body">
+									<form action="#" role="form" class="form-horizontal">
+																			
+										<div class="form-group">
+											<label class="col-md-4 control-label text-left">Camera Supported</label>
+											<div class="col-md-4" id="Pi_Camera_Supported">
+												<!-- success or fail will go here -->
+												
+											</div>
+											<div class="col-md-4">
+												<span class="help-block">Is the camera supported?</span>
+											</div>                                        
+										</div>
+										<div class="form-group">
+											<label class="col-md-4 control-label text-left">Camera Detected</label>
+											<div class="col-md-4" id="Pi_Camera_Detected">
+												<!-- success or fail will go here -->
+											</div>
+											<div class="col-md-4">
+												<span class="help-block">Is the camera detected?</span>
+											</div>                                        
+										</div>
+										
+									</form>
+								</div>
 							</div>
+
+							
+							<!-- END SETTINGS WIDGET -->
 						</div>
-                </div>
+					</div>
+					
+					<div class="row">
+						<div class="col-md-12">   
+
+								<div class="panel panel-default panel-hidden-controls">
+									<div class="panel-heading">
+										<h3 class="panel-title"><span class="fa fa-flag"></span> Curently Running Processes</h3>                                
+										<ul class="panel-controls">
+											<li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>
+											<li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
+											<li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
+											<li><a href="#" class="panel-remove"><span class="fa fa-times"></span></a></li>
+										</ul>                                   
+									</div>
+									<div class="panel-body">
+										<ul class="list-group border-bottom">
+                                        <li class="list-group-item">In Development</li>
+										</ul> 
+									</div>
+								</div>
+
+							</div>
+							<!-- END SETTINGS WIDGET -->
+						
+						
+						
+
+							
+							<!-- END SETTINGS WIDGET -->
+						</div>
+					</div>
+					
                 <!-- END PAGE CONTENT WRAPPER -->                
             </div>            
             <!-- END PAGE CONTENT -->
