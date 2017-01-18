@@ -70,7 +70,10 @@ Note:  you will need to restart the Node-Red server once you add the new package
 `node-red-start`
 
 ######Add Poseidon Flow to Node-Red
-In the Node-Red UI at 192.168.2.2:1880, open the menu with the button in the top left. Click on Import > Clipboard.  Then, copy the contents from the flow.txt file in this repository and paste it in the window and click 'Import'.  
+You need to take the 'flows_raspberrypi.json' file that is in the repository and copy it over the existing file that is in the node-red directory.
+The location of the file you need to replace is:  home/pi/.node-red/flows_raspberrypi.json.
+
+Alternatively, you could import them through the UI located at 192.168.2.2:1880.  More testing needs to be done on this to determine the best location.
 
 Two Flow tabs should be created.  Click the 'Deploy' button to make the flow live.  
 
