@@ -101,13 +101,7 @@
 					<li>
 						<a href="index.html"><span class="fa fa-cog"></span> <span class="xn-text">Settings</span></a>
 					</li>
-
-                    
-                                 
-                    
-                                     
                    
-                    
                 </ul>
                 <!-- END X-NAVIGATION -->
             </div>
@@ -123,16 +117,11 @@
                         <a href="#" class="x-navigation-minimize"><span class="fa fa-dedent"></span></a>
                     </li>
                     <!-- END TOGGLE NAVIGATION -->
-                  
-                    <!-- SIGN OUT -->
-                    <li class="xn-icon-button pull-right">
-                        <a href="#" class="mb-control" data-box="#mb-signout"><span class="fa fa-sign-out"></span></a>                        
-                    </li> 
-					
-                    <!-- END SIGN OUT -->
+
                     <!-- ALERTS -->
                     <li class="xn-icon-button pull-right">
                         <a href="#"><span class="fa fa-exclamation-triangle"></span></a>
+
                         <div class="informer informer-danger">3</div>
                         <div class="panel panel-primary animated zoomIn xn-drop-left xn-panel-dragging">
                             <div class="panel-heading">
@@ -185,8 +174,37 @@
                     <!-- START WIDGETS -->                    
                     <div class="row">
                               
-                        <div class="col-md-6">
-                            
+                        <div class="col-md-4">
+							<div class="widget widget-default widget-carousel">
+                                <div class="owl-carousel" id="owl-example">
+                                    <div>                                    
+                                        <div class="widget-title">Total Dive Count</div>
+                                        <div class="widget-subtitle"></div>
+                                        <div class="widget-int">0</div>
+                                    </div>
+									<div>                                    
+                                        <div class="widget-title">Last Dive</div>                                                                        
+                                        <div class="widget-subtitle"></div>
+                                        <div class="widget-int">Never</div>
+                                    </div>
+                                    <div>                                    
+                                        <div class="widget-title">Max Depth</div>
+                                        <div class="widget-subtitle">ft</div>
+                                        <div class="widget-int">0</div>
+                                    </div>
+									<div>                                    
+                                        <div class="widget-title">Longest Dive</div>
+                                        <div class="widget-subtitle">Duration</div>
+                                        <div class="widget-int">0 minutes</div>
+                                    </div>
+                                </div>                            
+                                                           
+                            </div>                         
+						</div>
+						
+						
+						<div class="col-md-4">
+
                             <!-- START WIDGET CLOCK -->
                             <!-- <div class="widget widget-info widget-padding-sm">
                                 <div class="widget-big-int" id="upTime2"></div>                            
@@ -203,7 +221,7 @@
 							  
 						
 						</div>	 
-						<div class="col-md-6">
+						<div class="col-md-4">
 							<div class="widget widget-default widget-no-subtitle">
                                 <div class="widget-big-int" id="ws_status">Not Connected</div>                            
                                 <div class="widget-subtitle" id="ws_name">Node-Red</div>  
@@ -238,14 +256,6 @@
 					
 					
                     <!-- END WIDGETS -->                    
-                    
-                   
-                    
-                   
-						
-
-             
-                   
                     
                 </div>
                 <!-- END PAGE CONTENT WRAPPER -->                                
@@ -312,19 +322,6 @@
         
         <script type="text/javascript" src="js/demo_dashboard.js"></script>
         <!-- END TEMPLATE -->
-		<script>
-		  'use strict';
-
-		  angular.module('rovUI', [])
-		  .controller('ROVController', function($scope){
-			
-			$scope.upTime = '00:00:00'
-		  });
-		  
-
-  
-		 
-		</script>
     <!-- END SCRIPTS -->         
     </body>
 </html>
