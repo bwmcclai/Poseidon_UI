@@ -3,7 +3,7 @@ Raspberry Pi Hosted UI for Blue Robotics ROV. This project is currently under de
 
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Poseidon_UI/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-![Screenshot](http://i.imgur.com/lMqbBq8.png?raw=true "Screenshot")
+![Screenshot](http://i.imgur.com/k56G4Okh.png?raw=true "Screenshot")
 
 ##About:
 This is an early build of a user interface for a ROV that is hosted on the Raspberry Pi. This UI is designed around the use of the ArduSub software and Blue Robotics ROV builds.
@@ -79,6 +79,14 @@ Two Flow tabs should be created.
 Data should now be coming through to the Poseidon UI page.
 
 Good luck!
+
+
+
+#####More Screenshots
+
+Shutdown popup warning - with sound
+![Flow](http://i.imgur.com/quYE6KQh.png?raw=true "Flow")
+
 
 
 
