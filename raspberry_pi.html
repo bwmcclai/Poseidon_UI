@@ -13,7 +13,7 @@
         <!-- CSS INCLUDE -->        
         <link rel="stylesheet" type="text/css" id="theme" href="css/theme-default.css"/>
         <!-- EOF CSS INCLUDE -->
-			<script type="text/javascript">
+		<script type="text/javascript">
         var ws;
         var wsUri = "ws:";
         var loc = window.location;
@@ -35,6 +35,9 @@
                 var data = msg.data;
                  var element = data.split("=")[0]
                 var value = data.split("=")[1]
+				
+				document.getElementById("btnPiShutdown").onclick = function () { if (ws) { ws.send('Control_Pi_Shutdown'); } };
+				document.getElementById("btnPiReboot").onclick = function () { if (ws) { ws.send('Control_Pi_Reboot'); } };
                 
                 //this would only work if I am placing the data into an innerHTML (might have to split it out later)
                 //document.getElementById(element).innerHTML = value; 
@@ -49,7 +52,12 @@
 				{
 					$('#CPU_Mem').val(value).trigger('change');
 					document.getElementById("CPU_Mem_Label").innerHTML = value; 
-					$("#CPU_Mem_Sub_Label").html('Live Value');
+					
+				}
+				
+				if (element == "Total_Mem")
+				{
+					$("#CPU_Mem_Sub_Label").html(value);
 				}
 				
 				if (element == "Disk_Space")
@@ -108,6 +116,7 @@
 		function getData() {
             if (ws) { ws.send('getData'); }
         }
+		
     </script>
     </head>
        <body onload="wsConnect();" onunload="ws.disconnect();">
@@ -239,19 +248,22 @@
 									<div class="panel-body">
 										<ul class="list-group border-bottom">
                                         <li class="list-group-item">Raspberry Pi Operating System<span class="badge badge-success" id="Pi_OS">....</span></li>
+										<li class="list-group-item">Wifi Status<span class="badge badge-success" id="Pi_Wifi_Status"></span></li>
 										</ul> 
 									</div>
 								</div>
 
 							</div>
 							<!-- END SETTINGS WIDGET -->
+							
+								
 						
 						
 						<div class="col-md-6">   
 
 							<div class="panel panel-default panel-hidden-controls">
 									<div class="panel-heading">
-										<h3 class="panel-title"><span class="fa fa-rss"></span> Wifi</h3>                                
+										<h3 class="panel-title"><span class="fa fa-shield"></span> Admin Functions</h3>                                
 										<ul class="panel-controls">
 											<li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>
 											<li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
@@ -260,10 +272,54 @@
 									</div>
 									<div class="panel-body">
 										<ul class="list-group border-bottom">
-                                        <li class="list-group-item">Status<span class="badge badge-success" id="Pi_Wifi_Status"></span></li>
+										<center>
+											<button type="button" class="btn btn-warning mb-control" data-box="#rebootPi_Box"><i class="fa fa-refresh">  Reboot Pi</i></button>											
+											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+											<button type="button" class="btn btn-danger mb-control" data-box="#shutdownPi_Box"><i class="fa fa-power-off">  Shutdown Pi</i></button>
+											</center>
 										</ul> 
 									</div>
 								</div>
+								
+								<!-- danger with sound -->
+								<div class="message-box message-box-warning animated fadeIn" data-sound="fail" id="rebootPi_Box">
+									<div class="mb-container">
+										<div class="mb-middle">
+											<div class="mb-title"><span class="fa fa-warning"></span> Are You Sure?</div>
+											<div class="mb-content">
+											<br /><br />
+												<p>The Raspberry Pi will now reboot safely.  You should not be in the middle of a dive!  It will take 1-2 minutes for this Ui to become available again.</p>         
+											<br /><br />												
+											</div>
+											<div class="mb-footer">
+												<button class="btn btn-default btn-lg mb-control-close">Cancel</button>
+												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+												<button class="btn btn-default btn-lg mb-control-close" id="btnPiReboot">Reboot</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- end danger with sound -->
+								
+								<!-- danger with sound -->
+								<div class="message-box message-box-danger animated fadeIn" data-sound="fail" id="shutdownPi_Box">
+									<div class="mb-container">
+										<div class="mb-middle">
+											<div class="mb-title"><span class="fa fa-warning"></span> Are You Sure?</div>
+											<div class="mb-content">
+											<br /><br />
+												<p>The Raspberry Pi will now shutdown safely.  This UI will become unavailable at this time.  Power will need to be reconnected to the Raspberry Pi to startup again.</p>    
+											<br /><br />
+											</div>
+											<div class="mb-footer">
+												<button class="btn btn-default btn-lg  mb-control-close">Cancel</button>
+												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+												<button class="btn btn-default btn-lg  mb-control-close" id="btnPiShutdown">Shutdown</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- end danger with sound -->
 
 
 							

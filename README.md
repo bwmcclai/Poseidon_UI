@@ -7,18 +7,21 @@ Raspberry Pi Hosted UI for Blue Robotics ROV. This project is currently under de
 
 ##About:
 This is an early build of a user interface for a ROV that is hosted on the Raspberry Pi. This UI is designed around the use of the ArduSub software and Blue Robotics ROV builds.
-The anticipated features are :
+Currently completed features are:  
+- Raspberry Pi Status (cpu, gpu, temp, storage)
+- Raspberry Pi System Info (OS, Wifi Status)
+- Raspberry Pi Admin Functions (Reboot, Safe Shutdown)
+
+The anticipated upcoming features are :
 - Wifi Configuration of the Pi (to connect to internet at home and download updates)
 - Pixhawk Firmware Update
 - Pixhawk Status (Alive, Firmware Version, etc.)
 - Raspberry Pi Software Update (mostly to update this software itself)
-- Raspberry Pi Status (cpu, gpu, temp, storage, software versions)
 - Camera Config (RPi camera settings, external camera config)
 - Configuration of Sensors (sonar connected to USB, etc.)
 - Download of QGC binaries for in-field installs
 
-Currently completed features are:  
-- Raspberry Pi Status (cpu, gpu, temp, storage, software versions)
+
 
 ##Setup Guide:
 Eventually everything will be wrapped up nicely into an install package for the Raspberry Pi, but for now initial setup is done manually until we get further in the build.
@@ -58,24 +61,20 @@ http://nodered.org/docs/hardware/raspberrypi.html
 
 If everything worked properly, you should now be able to navigate to 192.168.2.2:1880 to see the node-red UI.
 
-You can now add new modules to node-red and extend the functionality.  Currently, there is (1) additional packages that are in use.  
-To install, first navigate to the node-red directory.  
-`cd ~/.node-red`  
-Then add the node-red-contrib-os package.  
-`npm install node-red-contrib-os`
-
-Note:  you will need to restart the Node-Red server once you add the new package for it to show up.
-`cd ~/.node-red` if you aren't already there
-`node-red-stop`
-`node-red-start`
-
 ######Add Poseidon Flow to Node-Red
 You need to take the 'flows_raspberrypi.json' file that is in the repository and copy it over the existing file that is in the node-red directory.
 The location of the file you need to replace is:  home/pi/.node-red/flows_raspberrypi.json.
 
+Note:  you will need to restart the Node-Red server anyime you modify the flow_raspberrypi.json file.
+`cd ~/.node-red` if you aren't already there
+`node-red-stop`
+`node-red-start`
+
 Alternatively, you could import them through the UI located at 192.168.2.2:1880.  More testing needs to be done on this to determine the best location.
 
-Two Flow tabs should be created.  Click the 'Deploy' button to make the flow live.  
+Two Flow tabs should be created.  
+
+![Flow](http://i.imgur.com/wqQkKw0m.png?raw=true "Flow")
 
 Data should now be coming through to the Poseidon UI page.
 
