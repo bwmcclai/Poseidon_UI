@@ -75,21 +75,16 @@
 				
 				if (element == "Pi_Wifi_Network")
 				{
-					document.getElementById("Wifi_Signal_Sub_Label").innerHTML = value;
-				}
-
-				if (element == "Pi_Wifi_Status")
-				{
-					//$('#' + element).val(value).trigger('change');
-					$("#" + element).html(value);
-					if (value== "Connected") {
+					document.getElementById(element).innerHTML = value;
+					
+					if (value!= "Not Connected") {
 						document.getElementById(element).className = "badge badge-success";
 					}
 					else {
 						document.getElementById(element).className = "badge badge-danger";
 					}
-
 				}
+
 				
 				if (element == "Pi_Wifi_IP") {
 					$("#" + element).html(value);
@@ -334,17 +329,13 @@
                                         <table class="table table-bordered table-striped">
                                             
                                             <tbody>
-                                                <tr>
-                                                    <td width="50%" style="vertical-align:middle">Status</td>
-                                                    <td style="vertical-align:middle"><center><span class="label label-danger" id="Pi_Wifi_Status"></span></center></td>
-                                                    
-                                                </tr>
+                                               
                                                 <tr>
                                                     <td style="vertical-align:middle">Network</td>
                                                     <td style="vertical-align:middle">
 													
 													<center>
-													<span id="Wifi_Signal_Sub_Label"></span>
+													<span id="Pi_Wifi_Network"></span>
 													</center>
 												
 													</td>
