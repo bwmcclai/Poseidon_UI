@@ -91,6 +91,17 @@
 
 				}
 				
+				if (element == "Pi_Wifi_IP") {
+					$("#" + element).html(value);
+					if (len(value) >= 2) {
+						document.getElementById(element).className = "badge badge-success";
+						document.getElementById(element).innerHTML = value;
+					} else {
+						document.getElementById(element).className = "badge badge-danger";
+						document.getElementById(element).innerHTML = value;
+					}
+				}
+				
 				
 				if (element == "Pi_OS")
 				{
@@ -296,6 +307,7 @@
 									<ul class="list-group border-bottom">
                                     <li class="list-group-item">Raspberry Pi Operating System<span class="badge badge-success" id="Pi_OS">....</span></li>
 									<li class="list-group-item">Wifi Status<span class="badge badge-success" id="Pi_Wifi_Status"></span></li>
+									<li class="list-group-item">Wifi IP Address<span class="badge badge-success" id="Pi_Wifi_IP"></span></li>
 									<li class="list-group-item">MAVProxy Status<span class="badge badge-success" id="MAVProxy_Status"></span></li>
 									<li class="list-group-item">Video Status<span class="badge badge-success" id="Video_Status"></span></li>
 									<li class="list-group-item">Pixhawk Status<span class="badge badge-success" id="Pixhawk_Status"></span></li>
@@ -379,36 +391,7 @@
 						</div>
 					</div>
 					
-					<div class="row">
-						<div class="col-md-12">   
-
-								<div class="panel panel-default panel-hidden-controls">
-									<div class="panel-heading">
-										<h3 class="panel-title"><span class="fa fa-flag"></span> Curently Running Processes</h3>                                
-										<ul class="panel-controls">
-											<li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>
-											<li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
-											<li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
-											<li><a href="#" class="panel-remove"><span class="fa fa-times"></span></a></li>
-										</ul>                                   
-									</div>
-									<div class="panel-body">
-										<ul class="list-group border-bottom">
-                                        <li class="list-group-item">In Development</li>
-										</ul> 
-									</div>
-								</div>
-
-							</div>
-							<!-- END SETTINGS WIDGET -->
-						
-						
-						
-
-							
-							<!-- END SETTINGS WIDGET -->
-						</div>
-					</div>
+					
 					
                 <!-- END PAGE CONTENT WRAPPER -->                
             </div>            
