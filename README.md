@@ -61,8 +61,8 @@ If you have already run the initial setup and are just looking to get the latest
 From within the Poseidon_UI directory...   
 `bash update.sh`
 
-Node-Red will now restart and your UI and flows will be updated!
-
+Node-Red will now restart and your UI and flows will be updated!   
+Note: it will take about 10 seconds for Node-Red to restart, data wont come into the UI until thats complete.  
 
 #####More Screenshots
 
