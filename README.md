@@ -30,56 +30,38 @@ The following assumptions need to be followed for this to work:
 - Raspberry Pi IP address is set to 192.168.2.2 (or else you will need to change the .html code)
 - Raspberry Pi has external internet access to be able to download nginx and node-red files.
 
-####NGINX Web Server
-Nginx is used to serve the files contained in this repository. First, SSH into the RPi and install nginx.  
-`sudo apt-get install nginx`
 
-Nginx will start on boot, but if you want to run it now without rebooting, enter the following code.  
-`sudo /etc/init.d/nginx start`
+#### New Install/Setup
 
-When complete, you should be able to navigate to 192.168.2.2 (RPi IP address) in your webbrowser and see a sample file.
-For more nginx information, visit the following page:   
-https://www.raspberrypi.org/documentation/remote-access/web-server/nginx.md
+###### Get The Code
+On your Raspberry Pi, execute the following command to get the code.
+`sudo git clone http://github.com/bwmcclai/Poseidon_UI`
 
-####Updating NGINX files with this repository  
-In SSH, cd to the default nginx www folder:  
-`cd /var/www/html/`
+###### Run the Setup script
+`cd Poseidon_UI`
+`bash setup.sh`
 
-Then clone this repository to the folder:  
-`sudo git clone https://github.com/bwmcclai/Poseidon_UI.git`
+This will install NGINX, Node-Red, and move all files to their proper locations.  It will take a few minutes.
 
-You should now be able to navigate again to 192.168.2.2 and see the UI properly. The files should be in the /var/www/html/ directory and not /var/www/html/Poseidon_UI.  If they are, you will need to move the files into the root.
-`sudo chmod 777 /var/www/html`
+When complete, you should be able to navigate to 192.168.2.2 in your web browser and see the UI.  You should also be able to navigate to 192.168.2.2:1880 to see the node-red code.
 
-The next section deals with the data backend.
+The UI should show 'Connected' and the UpTime counter running.  If it is, then you have completed the initial setup successfully.
 
-####Node-Red
-Node-Red is the backend of the UI and provides bi-directional communication.  It can be used to expand the functionality of the UI and allow users to customize the code for their application from within the web browser.
-
-To install Node-Red, visit the following page and follow along:  
-http://nodered.org/docs/hardware/raspberrypi.html
-
-If everything worked properly, you should now be able to navigate to 192.168.2.2:1880 to see the node-red UI.
-
-######Add Poseidon Flow to Node-Red
-You need to take the 'flows_raspberrypi.json' file that is in the repository and copy it over the existing file that is in the node-red directory.
-The location of the file you need to replace is:  home/pi/.node-red/flows_raspberrypi.json.
-
-Note:  you will need to restart the Node-Red server anyime you modify the flow_raspberrypi.json file.
-`cd ~/.node-red` if you aren't already there
-`node-red-stop`
-`node-red-start`
-
-Alternatively, you could import them through the UI located at 192.168.2.2:1880.  More testing needs to be done on this to determine the best location.
-
-Two Flow tabs should be created.  
 
 ![Flow](http://i.imgur.com/wqQkKw0m.png?raw=true "Flow")
 
-Data should now be coming through to the Poseidon UI page.
 
-Good luck!
+#### Updating Code
+If you have already run the initial setup and are just looking to get the latest code, follow the instructions below.  Eventually, updates will be done from the UI, but it is manual for now.
 
+`cd Poseidon_UI`
+`git pull`
+
+###### Execute Update Script
+From within the Poseidon_UI directory...
+`bash update.sh`
+
+Node-Red will now restart and your UI and flows will be updated.
 
 
 #####More Screenshots
