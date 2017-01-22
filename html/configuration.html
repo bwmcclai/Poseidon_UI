@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>        
+        <!-- META SECTION -->
+        <title>Poseidon UI - Configuration</title>            
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        
+        <link rel="icon" href="faviconbr.ico" type="image/x-icon" />
+        <!-- END META SECTION -->
+        
+        <!-- CSS INCLUDE -->        
+        <link rel="stylesheet" type="text/css" id="theme" href="css/theme-default.css"/>
+        <!-- EOF CSS INCLUDE -->
+		<script type="text/javascript">
+        var ws;
+        var wsUri = "ws:";
+        var loc = window.location;
+        console.log(loc);
+        if (loc.protocol === "https:") { wsUri = "wss:"; }
+        // This needs to point to the web socket in the Node-RED flow
+		//wsUri += "//" + loc.host + loc.pathname.replace("index.html","ws/ui");
+		var wsName = "ws/ui";
+		wsUri +="//192.168.2.2:1880/" + wsName;
+		
+
+        function wsConnect() {
+            console.log("connect",wsUri);
+            ws = new WebSocket(wsUri);
+            //var line = "";    // either uncomment this for a building list of messages
+            ws.onmessage = function(msg) {
+                var line = "";  // or uncomment this to overwrite the existing message
+                // parse the incoming message as a JSON object
+                var data = msg.data;
+                 var element = data.split("=")[0]
+                var value = data.split("=")[1]
+				
+				//document.getElementById("btnPiShutdown").onclick = function () { if (ws) { ws.send('Control_Pi_Shutdown'); } };
+				//document.getElementById("btnPiReboot").onclick = function () { if (ws) { ws.send('Control_Pi_Reboot'); } };
+                
+                //this would only work if I am placing the data into an innerHTML (might have to split it out later)
+                
+				
+				
+		//ws.send(JSON.stringify({data:data}));
+            }
+            ws.onopen = function() {
+                // update the status div with the connection status
+                
+                //ws.send("Open for data");
+                console.log("connected");
+				getData();
+            }
+            ws.onclose = function() {
+                // update the status div with the connection status
+               
+                // in case of lost connection tries to reconnect every 3 secs
+                setTimeout(wsConnect,3000);
+            }
+        }
+        
+        function doit(m) {
+            if (ws) { ws.send(m); }
+        }
+		
+
+		function getData() {
+            if (ws) { ws.send('getData'); }
+        }
+		
+    </script>
+    </head>
+       <body onload="wsConnect();" onunload="ws.disconnect();">
+        <!-- START PAGE CONTAINER -->
+        <div class="page-container">
+            
+            <!-- START PAGE SIDEBAR -->
+            <div class="page-sidebar">
+                <!-- START X-NAVIGATION -->
+                <ul class="x-navigation">
+                    <li class="xn-logo">
+                        <a href="index.html">Poseidon UI</a>
+                        <a href="#" class="x-navigation-control"></a>
+                    </li>
+                    
+                    <li class="xn-title">Navigation</li>
+                    <li>
+                        <a href="index.html"><span class="fa fa-desktop"></span> <span class="xn-text">Dashboard</span></a>
+						                         
+                    </li>                    
+                    <li class="xn-openable">
+                        <a href="#"><span class="fa fa-cogs"></span> <span class="xn-text">Systems</span></a>
+                        <ul>
+                            <a href=""><span class="fa fa-linux"></span> Raspberry Pi</a></li>
+                            <li><a href="index.html"><span class="fa fa-hdd-o"></span> Pixhawk</a></li>
+                            <li><a href="index.html"><span class="fa fa-anchor"></span> ROV</a></li>
+							<li><a href="index.html"><span class="fa fa-gamepad"></span> Controls</a></li>              
+                        </ul>
+                    </li>
+					<li>
+						<li class="active"><a href="configuration.html"><span class="fa fa-cog"></span> <span class="xn-text">Configuration</span></a>
+					</li>
+
+                    
+                                 
+                    
+                                     
+                   
+                    
+                </ul>
+                <!-- END X-NAVIGATION -->
+            </div>
+            <!-- END PAGE SIDEBAR -->
+            
+            <!-- PAGE CONTENT -->
+            <div class="page-content">
+                
+                <!-- START X-NAVIGATION VERTICAL -->
+                <ul class="x-navigation x-navigation-horizontal x-navigation-panel">
+                    <!-- TOGGLE NAVIGATION -->
+                    <li class="xn-icon-button">
+                        <a href="#" class="x-navigation-minimize"><span class="fa fa-dedent"></span></a>
+                    </li>
+                    <!-- END TOGGLE NAVIGATION -->                    
+                </ul>
+                <!-- END X-NAVIGATION VERTICAL -->                     
+                
+                <!-- START BREADCRUMB -->
+                <ul class="breadcrumb">
+                    <li><a href="index.html">Home</a></li>                    
+                    <li class="active">Configuration</li>
+					
+                </ul>
+                <!-- END BREADCRUMB -->                
+                
+                <div class="page-title">                    
+                    <h2><span class="fa fa-cog"></span> Configuration</h2>
+                </div>                   
+                
+                <!-- PAGE CONTENT WRAPPER -->
+                <div class="page-content-wrap">
+                
+                    <div class="row">
+						<div class="col-md-6">
+							<!-- START PANEL WITH HIDDEN CONTROLS -->
+                            <div class="panel panel-success panel-hidden-controls">
+                                <div class="panel-heading">
+                                    <h2 class="panel-title">UI Software</h2>
+                                    <ul class="panel-controls">
+                                        <li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>
+										<li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
+                                        <li><a href="#" class="panel-remove"><span class="fa fa-times"></span></a></li>
+                                    </ul>                                
+                                </div>
+                                <div class="panel-body" >
+                                    <div class="form-group"> 
+										<div class="col-md-12">
+                                                This section is for getting and updating the UI and Node-Red flows.
+                                            </div>
+											<br /><br />
+                                           
+                                            <div class="col-md-6">
+                                                <button class="btn btn-primary btn-block">Update Software</button>
+                                            </div>                                        
+                                        </div>      
+                                </div>      
+                                <div class="panel-footer">                                
+                                    <!-- <button class="btn btn-primary pull-right" onclick='doit("button Press");'>Sample Send Data back to Node-Red</button> -->
+                                </div>                            
+                            </div>
+                            <!-- END PANEL WITH HIDDEN CONTROLS -->
+						</div>
+						
+                    </div>
+					
+					
+					
+                <!-- END PAGE CONTENT WRAPPER -->                
+            </div>            
+            <!-- END PAGE CONTENT -->
+        </div>
+        <!-- END PAGE CONTAINER -->
+
+       
+
+        <!-- START PRELOADS -->
+        <audio id="audio-alert" src="audio/alert.mp3" preload="auto"></audio>
+        <audio id="audio-fail" src="audio/fail.mp3" preload="auto"></audio>
+        <!-- END PRELOADS -->                 
+        
+    <!-- START SCRIPTS -->
+        <!-- START PLUGINS -->
+        <script type="text/javascript" src="js/plugins/jquery/jquery.min.js"></script>
+        <script type="text/javascript" src="js/plugins/jquery/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="js/plugins/bootstrap/bootstrap.min.js"></script>    
+		<script type="text/javascript" src="js/plugins/knob/jquery.knob.min.js"></script>		
+        <!-- END PLUGINS -->
+
+        <!-- THIS PAGE PLUGINS -->
+
+        <!-- END PAGE PLUGINS -->         
+
+        <!-- START TEMPLATE -->
+        <script type="text/javascript" src="js/plugins.js"></script>        
+        <script type="text/javascript" src="js/actions.js"></script>        
+        <!-- END TEMPLATE -->
+    <!-- END SCRIPTS -->         
+    </body>
+</html>
+
+
+
+
+
+
