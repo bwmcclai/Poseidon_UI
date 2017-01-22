@@ -69,8 +69,8 @@
 				
 				if (element == "Pi_Wifi_Signal")
 				{
-					$('#Wifi_Signal').val(value).trigger('change');
-					document.getElementById("Wifi_Signal_Label").innerHTML = value;
+					$('#Wifi_Signal').css('width', value + '%');
+					document.getElementById("Wifi_Signal_Label").innerHTML = value + '%';
 				}
 				
 				if (element == "Pi_Wifi_Network")
@@ -235,7 +235,7 @@
                 <div class="page-content-wrap">
                 
                     <div class="row">
-						<div class="col-md-3">
+						<div class="col-md-4">
 							<div class="widget widget-default widget-padding-sm">                            
                                 <div class="widget-item-left">
                                     <input class="knob" id= "CPU_Temp" data-width="100" data-height="100" data-min="40" data-max="175" data-displayInput=false data-bgColor="#F8F8F8 " data-fgColor="#61C0E6" value="80%" data-readOnly="true" data-thickness=".4"/>
@@ -248,7 +248,7 @@
                                                       
                             </div>     
 						</div>
-						<div class="col-md-3">
+						<div class="col-md-4">
 							<div class="widget widget-default widget-padding-sm">                            
                                 <div class="widget-item-left">
                                     <input class="knob" id= "CPU_Mem" data-width="100" data-height="100" data-min="0" data-max="100" data-displayInput=false data-bgColor="#F8F8F8 " data-fgColor="#61C0E6" value="80%" data-readOnly="true" data-thickness=".4"/>
@@ -262,7 +262,7 @@
                             </div>     
 						</div>
 						
-						<div class="col-md-3">
+						<div class="col-md-4">
 							<div class="widget widget-default widget-padding-sm">                            
                                 <div class="widget-item-left">
                                     <input class="knob" id= "Disk_Space" data-width="100" data-height="100" data-min="0" data-max="100" data-displayInput=false data-bgColor="#F8F8F8 " data-fgColor="#61C0E6" value="80%" data-readOnly="true" data-thickness=".4"/>
@@ -275,23 +275,7 @@
                                                       
                             </div>     
 						</div>
-						
-						<div class="col-md-3">
-							<div class="widget widget-default widget-padding-sm">                            
-                                <div class="widget-item-left">
-                                    <input class="knob" id= "Wifi_Signal" data-width="100" data-height="100" data-min="0" data-max="100" data-displayInput=false data-bgColor="#F8F8F8 " data-fgColor="#61C0E6" value="80%" data-readOnly="true" data-thickness=".4"/>
-                                </div>
-                                <div class="widget-data">
-                                    <div class="widget-big-int"><span class="num-count" id="Wifi_Signal_Label">0</span>%</div>
-                                    <div class="widget-title">Wifi Signal</div>
-                                    <div class="widget-subtitle" id="Wifi_Signal_Sub_Label">Not Connected</div>                                
-                                </div>                            
-                                                      
-                            </div>     
-						</div>
-						
-                    </div>
-					
+					</div>
 					<div class="row">
 						<div class="col-md-6">   
 							<div class="panel panel-default panel-hidden-controls">
@@ -303,27 +287,110 @@
 										<li><a href="#" class="panel-remove"><span class="fa fa-times"></span></a></li>
 									</ul>                                   
 								</div>
-								<div class="panel-body">
-									<ul class="list-group border-bottom">
-                                    <li class="list-group-item">Raspberry Pi Operating System<span class="badge badge-success" id="Pi_OS">....</span></li>
-									<li class="list-group-item">Wifi Status<span class="badge badge-success" id="Pi_Wifi_Status"></span></li>
-									<li class="list-group-item">Wifi IP Address<span class="badge badge-success" id="Pi_Wifi_IP"></span></li>
-									<li class="list-group-item">MAVProxy Status<span class="badge badge-success" id="MAVProxy_Status"></span></li>
-									<li class="list-group-item">Video Status<span class="badge badge-success" id="Video_Status"></span></li>
-									<li class="list-group-item">Pixhawk Status<span class="badge badge-success" id="Pixhawk_Status"></span></li>
-
-
-
-									</ul> 
-								</div>
+								<div class="panel-body panel-body-table">
+									
+									<div class="table-responsive">
+                                        <table class="table table-bordered table-striped">
+                                            
+                                            <tbody>
+                                                <tr>
+                                                    <td width="50%" style="vertical-align:middle">Raspberry Pi Operating System</td>
+                                                    <td style="vertical-align:middle"><center><span class="badge badge-success" id="Pi_OS"></span></center></td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="vertical-align:middle">MAVProxy Status</td>
+													<td style="vertical-align:middle"><center><span class="badge badge-success" id="MAVProxy_Status"></span></center></td>
+                                                </tr>  
+												 <tr>
+                                                    <td style="vertical-align:middle">Video Status</td>
+													<td style="vertical-align:middle"><center><span class="badge badge-success" id="Video_Status"></span></center></td>
+                                                </tr>  
+												<tr>
+                                                    <td style="vertical-align:middle">Pixhawk Status</td>
+													<td style="vertical-align:middle"><center><span class="badge badge-success" id="Pixhawk_Status"></span></center></td>
+                                                </tr>  
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    
+                                </div>
+								
 							</div>
 						</div>
-						<!-- END SETTINGS WIDGET -->
-							
+						<div class="col-md-6">
+							<!-- Start WIFI Block -->
+                            <div class="panel panel-default panel-hidden-controls">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title"><span class="fa fa-rss"></span> Wifi</h3>                                  
+                                    <ul class="panel-controls" style="margin-top: 2px;">
+                                        <li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>
+                                        <li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
+                                                                               
+                                    </ul>
+                                </div>
+                                <div class="panel-body panel-body-table">
+                                    
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped">
+                                            
+                                            <tbody>
+                                                <tr>
+                                                    <td width="50%" style="vertical-align:middle">Status</td>
+                                                    <td style="vertical-align:middle"><center><span class="label label-danger" id="Pi_Wifi_Status"></span></center></td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                    <td style="vertical-align:middle">Network</td>
+                                                    <td style="vertical-align:middle">
+													
+													<center>
+													<span id="Wifi_Signal_Sub_Label"></span>
+													</center>
+												
+													</td>
+                                                    
+                                                </tr>  
+												<tr>
+													<td style="vertical-align:middle">IP Address</td>
+													<td>
+														<center>
+                                                       <span id="Pi_Wifi_IP"></span>
+													   </center>
+                                                    </td>
+												</tr>
+												<tr>
+													<td style="vertical-align:middle">Signal Strength</td>
+													<td>
+														<center>
+														<div class="progress progress-small">															
+                                                            <div class="progress-bar progress-bar-colorful" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;" id="Wifi_Signal"></div>
+															
+                                                        </div>
+														<span id="Wifi_Signal_Label"></span>
+													   </center>
+                                                    </td>
+												</tr>
+                                                                                
+                                                
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <!-- END PROJECTS BLOCK -->
+                              
+						</div>
+						
+						
+                    </div>
+					
+					<div class="row">						
 								
+						<div class="col-md-4"> 
+						</div>						
 						
-						
-						<div class="col-md-6">   
+						<div class="col-md-4">   
 
 							<div class="panel panel-default panel-hidden-controls">
 									<div class="panel-heading">
