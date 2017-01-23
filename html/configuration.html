@@ -36,8 +36,7 @@
                  var element = data.split("=")[0]
                 var value = data.split("=")[1]
 
-				//Run update.sh script
-				document.getElementById("btnUpdateConfirm").onclick = function () { if (ws) { ws.send('Control_Update_Software'); } };
+			
 				
           
                 if (element == "Git_Status")
@@ -197,31 +196,13 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-						 <button class="btn btn-primary" onclick="sendData('getGitStatus');" data-dismiss="modal" data-box="#downloadAndUpdate_box">Download and Install Updates</button>
+						 <button class="btn btn-primary" data-dismiss="modal" onclick="sendData('Control_Update_Software');">Download and Install Updates</button>
                     </div>
                 </div>
             </div>
         </div>
 		
-		<!-- danger with sound -->
-		<div class="message-box message-box-warning animated fadeIn" data-sound="fail" id="downloadAndUpdate_box">
-			<div class="mb-container">
-				<div class="mb-middle">
-					<div class="mb-title"><span class="fa fa-warning"></span> Are You Sure?</div>
-					<div class="mb-content">
-					<br /><br />
-						<p>New code will be downloaded from Github and installed on this machine.  Node-Red will restart and you will have no data for approx. 15 seconds.  You will also need to refresh this page to take in the new updates to the UI.</p>    
-					<br /><br />
-					</div>
-					<div class="mb-footer">
-						<button class="btn btn-default btn-lg  mb-control-close">Cancel</button>
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<button class="btn btn-default btn-lg  mb-control-close" id="btnUpdateConfirm">Confirm</button>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- end danger with sound -->
+		
 
         <!-- START PRELOADS -->
         <audio id="audio-alert" src="audio/alert.mp3" preload="auto"></audio>
