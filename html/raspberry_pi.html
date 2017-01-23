@@ -138,7 +138,7 @@
                 
                 //ws.send("Open for data");
                 console.log("connected");
-				getData();
+				sendData('getData');
             }
             ws.onclose = function() {
                 // update the status div with the connection status
@@ -148,13 +148,9 @@
             }
         }
         
-        function doit(m) {
-            if (ws) { ws.send(m); }
-        }
-		
 
-		function getData() {
-            if (ws) { ws.send('getData'); }
+		function sendData(command) {
+            if (ws) { ws.send(command); }
         }
 		
     </script>

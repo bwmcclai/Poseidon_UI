@@ -35,12 +35,16 @@
                 var data = msg.data;
                  var element = data.split("=")[0]
                 var value = data.split("=")[1]
+
+				//Run update.sh script
+				document.getElementById("btnUpdateConfirm").onclick = function () { if (ws) { ws.send('Control_Update_Software'); } };
 				
-				//document.getElementById("btnPiShutdown").onclick = function () { if (ws) { ws.send('Control_Pi_Shutdown'); } };
-				//document.getElementById("btnPiReboot").onclick = function () { if (ws) { ws.send('Control_Pi_Reboot'); } };
-                
-                //this would only work if I am placing the data into an innerHTML (might have to split it out later)
-                
+          
+                if (element == "Git_Status")
+				{
+					document.getElementById(element).innerHTML = value; 
+					
+				}
 				
 				
 		//ws.send(JSON.stringify({data:data}));
@@ -59,14 +63,9 @@
                 setTimeout(wsConnect,3000);
             }
         }
-        
-        function doit(m) {
-            if (ws) { ws.send(m); }
-        }
-		
-
-		function getData() {
-            if (ws) { ws.send('getData'); }
+       
+		function sendData(command) {
+            if (ws) { ws.send(command); }
         }
 		
     </script>
@@ -140,9 +139,10 @@
                 
                 <!-- PAGE CONTENT WRAPPER -->
                 <div class="page-content-wrap">
-                
+					<div class="col-md-4">
+					</div>
                     <div class="row">
-						<div class="col-md-6">
+						<div class="col-md-4">
 							<!-- START PANEL WITH HIDDEN CONTROLS -->
                             <div class="panel panel-success panel-hidden-controls">
                                 <div class="panel-heading">
@@ -159,9 +159,11 @@
                                                 This section is for getting and updating the UI and Node-Red flows.
                                             </div>
 											<br /><br />
-                                           
+                                           <div class="col-md-3">
+										   </div>
                                             <div class="col-md-6">
-                                                <button class="btn btn-primary btn-block">Update Software</button>
+                                                <button class="btn btn-primary btn-block" data-toggle="modal" data-target="#modal_git_check" onclick="sendData('getGitStatus');">Check for Updates</button>
+										
                                             </div>                                        
                                         </div>      
                                 </div>      
@@ -182,7 +184,44 @@
         </div>
         <!-- END PAGE CONTAINER -->
 
-       
+		 <!-- MODALS -->        
+        <div class="modal" id="modal_git_check" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title" id="defModalHead">Git Status</h4>
+                    </div>
+                    <div class="modal-body" id="Git_Status">
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						 <button class="btn btn-primary" onclick="sendData('getGitStatus');" data-dismiss="modal" data-box="#downloadAndUpdate_box">Download and Install Updates</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+		
+		<!-- danger with sound -->
+		<div class="message-box message-box-warning animated fadeIn" data-sound="fail" id="downloadAndUpdate_box">
+			<div class="mb-container">
+				<div class="mb-middle">
+					<div class="mb-title"><span class="fa fa-warning"></span> Are You Sure?</div>
+					<div class="mb-content">
+					<br /><br />
+						<p>New code will be downloaded from Github and installed on this machine.  Node-Red will restart and you will have no data for approx. 15 seconds.  You will also need to refresh this page to take in the new updates to the UI.</p>    
+					<br /><br />
+					</div>
+					<div class="mb-footer">
+						<button class="btn btn-default btn-lg  mb-control-close">Cancel</button>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<button class="btn btn-default btn-lg  mb-control-close" id="btnUpdateConfirm">Confirm</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- end danger with sound -->
 
         <!-- START PRELOADS -->
         <audio id="audio-alert" src="audio/alert.mp3" preload="auto"></audio>

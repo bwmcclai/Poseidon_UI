@@ -38,7 +38,7 @@ On your Raspberry Pi, execute the following command to get the code.
 `sudo git clone http://github.com/bwmcclai/Poseidon_UI`
 
 ###### Run the Setup script
-`cd Poseidon_UI`   
+`cd Poseidon_UI/scripts`   
 `bash setup.sh`
 
 This will install NGINX, Node-Red, and move all files to their proper locations.  It will take a few minutes.
@@ -50,15 +50,19 @@ The UI should show 'Connected' and the UpTime counter running.  If it is, then y
 
 ![Flow](http://i.imgur.com/wqQkKw0m.png?raw=true "Flow")
 
+#### Updating Code from the UI
+You can now check for updates and install them from the 'Configuration' section in the UI!  No SSH is needed.
 
-#### Updating Code
-If you have already run the initial setup and are just looking to get the latest code, follow the instructions below.  Eventually, updates will be done from the UI, but it is manual for now.
+#### Updating Code Manually
+If you have already run the initial setup and are just looking to get the latest code, follow the instructions below.
 
+Check the status of the repository vs what you currently have.
 `cd Poseidon_UI`   
-`git pull`
+`git status`
 
 ###### Execute Update Script
-From within the Poseidon_UI directory...   
+This is do a git pull and install the updates.
+`cd Poseidon_UI/scripts`   
 `bash update.sh`
 
 Node-Red will now restart and your UI and flows will be updated!   

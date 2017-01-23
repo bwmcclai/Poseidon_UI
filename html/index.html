@@ -51,7 +51,7 @@
 				document.getElementById('ws_name').innerHTML = "Node-Red Data: " + wsName;
                 //ws.send("Open for data");
                 console.log("connected");
-				getWebContent();
+				sendData('getContent');
             }
             ws.onclose = function() {
                 // update the status div with the connection status
@@ -62,12 +62,10 @@
             }
         }
         
-        function doit(m) {
-            if (ws) { ws.send(m); }
-        }
+       
 		
-		function getWebContent() {
-            if (ws) { ws.send('getContent'); }
+		function sendData(command) {
+            if (ws) { ws.send(command); }
         }
     </script>
     </head>
@@ -252,7 +250,9 @@
                                     </ul>                                
                                 </div>
                                 <div class="panel-body" id="ui_Info">
-                                    
+                                    Welcome to the new UI for ROV control and configuration.  This interface is hosted from the Raspberry Pi onboard the ROV.  It allows you to connect to the ROV on any device without the need to install any software. 
+									</br></br>To start with, the UI will mainly be used to configure subsystems, check system health, and view alarms and history. 
+									</br></br>More features are being added daily."
                                 </div>      
                                 <div class="panel-footer">                                
                                     <!-- <button class="btn btn-primary pull-right" onclick='doit("button Press");'>Sample Send Data back to Node-Red</button> -->
