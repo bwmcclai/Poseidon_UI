@@ -10,9 +10,9 @@ sudo pip install flask
 sudo pip install flask-socketio
 sudo pip install uwsgi flask
 
-#starting up at boot
-sudo apt-get -y install supervisor
-cp /home/pi/Poseidon_UI/setup/poseidon.conf /etc/supervisor/conf.d/poseidon.conf
-sudo supervisorctl reread
-sudo supervisorctl update
-sudo supervisor start poseidon
+#starting up at boot using systemd
+cp /home/pi/Poseidon_UI/setup/poseidon.service /etc/systemd/system/poseidon.service
+sudo systemctl daemon-reload
+sudo systemctl enable poseidon.service
+sudo systemctl start poseidon.service
+

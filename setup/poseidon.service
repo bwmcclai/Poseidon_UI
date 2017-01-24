@@ -1,0 +1,9 @@
+[Unit]
+Description=uWSGI Emporer
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python  /home/pi/Poseidon_UI/app.py
+
+[Install]
+WantedBy=multi-user.target
