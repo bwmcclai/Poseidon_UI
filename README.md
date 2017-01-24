@@ -24,8 +24,6 @@ The anticipated upcoming features are :
 
 
 ##Setup Guide:
-Eventually everything will be wrapped up nicely into an install package for the Raspberry Pi, but for now initial setup is done manually until we get further in the build.
-
 The following assumptions need to be followed for this to work:  
 - Raspberry Pi IP address is set to 192.168.2.2 (or else you will need to change the .html code)
 - Raspberry Pi has external internet access to be able to download nginx and node-red files.
@@ -38,17 +36,16 @@ On your Raspberry Pi, execute the following command to get the code.
 `sudo git clone http://github.com/bwmcclai/Poseidon_UI`
 
 ###### Run the Setup script
-`cd Poseidon_UI/scripts`   
-`bash setup.sh`
+`sudo bash setup.sh`
 
-This will install NGINX, Node-Red, and move all files to their proper locations.  It will take a few minutes.
+This will install flask, supervisor, and auto start on boot as well as move all files to their proper locations.  It will take a few minutes.
 
-When complete, you should be able to navigate to 192.168.2.2 in your web browser and see the UI.  You should also be able to navigate to 192.168.2.2:1880 to see the node-red code.
+When complete, you should be able to navigate to 192.168.2.2 in your web browser and see the UI. 
 
 The UI should show 'Connected' and the UpTime counter running.  If it is, then you have completed the initial setup successfully.
 
 
-![Flow](http://i.imgur.com/wqQkKw0m.png?raw=true "Flow")
+#### NEED to fix the items below
 
 #### Updating Code from the UI
 You can now check for updates and install them from the 'Configuration' section in the UI!  No SSH is needed.
@@ -65,8 +62,6 @@ This is do a git pull and install the updates.
 `cd Poseidon_UI/scripts`   
 `bash update.sh`
 
-Node-Red will now restart and your UI and flows will be updated!   
-Note: it will take about 10 seconds for Node-Red to restart, data wont come into the UI until thats complete.  
 
 #####More Screenshots
 
