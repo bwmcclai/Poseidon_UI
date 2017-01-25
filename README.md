@@ -59,9 +59,10 @@ Check the status of the repository vs what you currently have.
 `git status`
 
 ###### Execute Update Script
-This is do a git pull and install the updates.
+Do a git pull and install the updates.
+`sudo git pull`
 `cd Poseidon_UI/scripts`   
-`bash update.sh`
+`bash reloadUI.sh`
 
 
 #####More Screenshots

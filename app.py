@@ -2,7 +2,7 @@
 from flask import Flask, render_template, session, request
 from flask_socketio import SocketIO, emit, join_room, leave_room, \
     close_room, rooms, disconnect
-
+import subprocess
 import os
 from api import status
 
@@ -77,6 +77,10 @@ def command_message(message):
     if message['data'] == 'reloadUI':
         os.system('sudo systemctl restart poseidon')
         #emit('my_repsonse',{'data': 'reloadComplete'})
+    if message['data'] == 'gitStatus':
+		#result = subprocess.check_output("(cd Poseidon_UI && git status -s)",shell=True)
+		#result = 'ok'
+		emit('gitStatusResponse',{'data': 'not ready yet'})
 
 		
 	#leave this here as an example

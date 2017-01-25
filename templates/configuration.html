@@ -51,9 +51,14 @@
             //Reboot and Shutdown commands
 
             document.getElementById("btnReloadApp").onclick = function () { 
-                 console.log('reload');
                  socket.emit('command_from_UI', {data: 'reloadUI'});
             };
+            document.getElementById("btnGitStatus").onclick = function () { 
+                 socket.emit('command_from_UI', {data: 'gitStatus'});
+            };
+            socket.on('gitStatusResponse', function(msg) {
+                console.log(msg.data);
+            });
 			
             
             
@@ -72,7 +77,7 @@
 		
     </script>
     </head>
-       <body onload="wsConnect();" onunload="ws.disconnect();">
+       <body>
         <!-- START PAGE CONTAINER -->
         <div class="page-container">
             
@@ -170,7 +175,7 @@
                                            <div class="col-md-3">
 										   </div>
                                             <div class="col-md-6">
-                                                <button class="btn btn-primary btn-block" data-toggle="modal" data-target="#modal_git_check" onclick="sendData('getGitStatus');">Check for Updates</button>
+                                                <button class="btn btn-primary btn-block" disabled="disabled" data-toggle="modal" data-target="#modal_git_check" id="btnGitStatus">Check for Updates</button>
 										
                                             </div>                                        
                                         </div>      
