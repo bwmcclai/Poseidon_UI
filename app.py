@@ -2,7 +2,8 @@
 from flask import Flask, render_template, session, request
 from flask_socketio import SocketIO, emit, join_room, leave_room, \
     close_room, rooms, disconnect
-import threading
+
+import os
 from api import status
 
 
@@ -42,13 +43,6 @@ def raspberry_pi():
     
     return render_template('raspberry_pi.html', async_mode=socketio.async_mode)
 
-	
-@socketio.on('my_event')
-def test_message(message):
-    session['receive_count'] = session.get('receive_count', 0) + 1
-    emit('my_response',
-         {'data': message['data'], 'count': session['receive_count']})
-
 
 @socketio.on('my_ping')
 def ping_pong():
@@ -66,7 +60,26 @@ def test_connect():
 @socketio.on('disconnect')
 def test_disconnect():
     print('Client disconnected', request.sid)
-	
+
+@socketio.on('commandFromUI')
+def receivedCommand(message):
+    emit('my_repsonse',{'data': 'received: something'})
+    #result = subprocess.check_output("sudo reboot",shell=True)
+
+@socketio.on('command_from_UI')
+def command_message(message):
+    if message['data'] == 'piReboot':
+        os.system('sudo reboot')
+    if message['data'] == 'piShutdown':
+        os.system('sudo shutdown -r now')
+		
+	#leave this here as an example
+	#session['receive_count'] = session.get('receive_count', 0) + 1
+    #emit('my_response',{'data': message['data'], 'count': session['receive_count']})
+
+
+
+###  Sending data to the UI ###
 #########################################################################################
 @socketio.on('getPiData')
 def PiData(message):

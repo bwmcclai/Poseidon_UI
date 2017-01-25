@@ -52,7 +52,17 @@
 
             //Refresh some of the Pi Data every 4 seconds. Not needed for everything.. and 1 second would be too much
             refreshPiData();
+            
+            //Reboot and Shutdown commands
+            document.getElementById("btnPiShutdown").onclick = function () {
+                socket.emit('command_from_UI', {data: 'piShutdown'});
+            };
+			document.getElementById("btnPiReboot").onclick = function () { 
+                 socket.emit('command_from_UI', {data: 'piReboot'});
+            };
 			
+            
+            
 			socket.on('connect', function() {
                 socket.emit('getPiData', {data: 'page_load'});
 				 //document.getElementById('ws_status').innerHTML = "Connected";
