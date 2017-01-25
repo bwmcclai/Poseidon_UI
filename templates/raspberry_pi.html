@@ -3,159 +3,95 @@
     <head>        
         <!-- META SECTION -->
         <title>Poseidon UI - Raspberry Pi</title>            
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <script type="text/javascript" type="text/javascript" href="{{ url_for('static', filename='js/socket.io.min.js') }}"></script>
+		<script type="text/javascript" type="text/javascript" href="{{ url_for('static', filename='js/angular.min.js') }}"></script>
+		<link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='faviconbr.ico') }}">
+		 <!-- START PRELOADS -->
+        <audio id="audio-alert" src="{{ url_for('static', filename='audio/alert.mp3') }}" preload="auto"></audio>
+        <audio id="audio-fail" src="{{ url_for('static', filename='audio/fail.mp3') }}" preload="auto"></audio>
+        <!-- END PRELOADS -->                  
         
-        <link rel="icon" href="faviconbr.ico" type="image/x-icon" />
-        <!-- END META SECTION -->
+		<!-- START SCRIPTS -->
+        <script type="text/javascript" src="{{ url_for('static', filename='js/plugins/jquery/jquery.min.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/plugins/jquery/jquery-ui.min.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/plugins/bootstrap/bootstrap.min.js') }}"></script>        
+        <script type='text/javascript' src="{{ url_for('static', filename='js/plugins/icheck/icheck.min.js') }}"></script>        
+        <script type="text/javascript" src="{{ url_for('static', filename='js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/plugins/scrolltotop/scrolltopcontrol.js') }}"></script>
+        
+        
+        <script type="text/javascript" src="{{ url_for('static', filename='js/plugins/rickshaw/d3.v3.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/plugins/rickshaw/rickshaw.min.js') }}"></script>            
+        <script type='text/javascript' src="{{ url_for('static', filename='js/plugins/bootstrap/bootstrap-datepicker.js') }}"></script>                
+        <script type="text/javascript" src="{{ url_for('static', filename='js/plugins/owl/owl.carousel.min.js') }}"></script>  
+		<script type="text/javascript" src="{{ url_for('static', filename='js/plugins/knob/jquery.knob.min.js') }}"></script>   		
+		        
+        
+        <script type="text/javascript" src="{{ url_for('static', filename='js/plugins/moment.min.js') }}"></script>  
+
+        <script type="text/javascript" src="{{ url_for('static', filename='js/plugins.js') }}"></script>        
+        <script type="text/javascript" src="{{ url_for('static', filename='js/actions.js') }}"></script>
+		<script type="text/javascript" src="{{ url_for('static', filename='js/socket.io.min.js') }}"></script>
+        
         
         <!-- CSS INCLUDE -->        
-        <link rel="stylesheet" type="text/css" id="theme" href="css/theme-default.css"/>
-        <!-- EOF CSS INCLUDE -->
+        <link rel="stylesheet" type="text/css" id="theme" href="{{ url_for('static', filename='css/theme-default.css') }}"/>
 		<script type="text/javascript">
-        var ws;
-        var wsUri = "ws:";
-        var loc = window.location;
-        console.log(loc);
-        if (loc.protocol === "https:") { wsUri = "wss:"; }
-        // This needs to point to the web socket in the Node-RED flow
-		//wsUri += "//" + loc.host + loc.pathname.replace("index.html","ws/ui");
-		var wsName = "ws/ui";
-		wsUri +="//192.168.2.2:1880/" + wsName;
-		
-
-        function wsConnect() {
-            console.log("connect",wsUri);
-            ws = new WebSocket(wsUri);
-            //var line = "";    // either uncomment this for a building list of messages
-            ws.onmessage = function(msg) {
-                var line = "";  // or uncomment this to overwrite the existing message
-                // parse the incoming message as a JSON object
-                var data = msg.data;
-                 var element = data.split("=")[0]
-                var value = data.split("=")[1]
-				
-				document.getElementById("btnPiShutdown").onclick = function () { if (ws) { ws.send('Control_Pi_Shutdown'); } };
-				document.getElementById("btnPiReboot").onclick = function () { if (ws) { ws.send('Control_Pi_Reboot'); } };
-                
-                //this would only work if I am placing the data into an innerHTML (might have to split it out later)
-                //document.getElementById(element).innerHTML = value; 
-				if (element == "CPU_Temp")
-				{
-					//document.getElementById(element).val = value; 
-					$('#CPU_Temp').val(value).trigger('change');
-					document.getElementById("CPU_Temp_Label").innerHTML = value;
-					$("#CPU_Temp_Sub_Label").html('Live Value');
-				}
-				if (element == "CPU_Mem")
-				{
-					$('#CPU_Mem').val(value).trigger('change');
-					document.getElementById("CPU_Mem_Label").innerHTML = value; 
-					
-				}
-				
-				if (element == "Total_Mem")
-				{
-					$("#CPU_Mem_Sub_Label").html(value);
-				}
-				
-				if (element == "Disk_Space")
-				{
-					$('#Disk_Space').val(value).trigger('change');
-					document.getElementById("Disk_Space_Label").innerHTML = value;
-					$("#Disk_Space_Sub_Label").html('Root Partition');
-				}
-				
-				if (element == "Pi_Wifi_Signal")
-				{
-					$('#Wifi_Signal').css('width', value + '%');
-					document.getElementById("Wifi_Signal_Label").innerHTML = value + '%';
-				}
-				
-				if (element == "Pi_Wifi_Network")
-				{
-					document.getElementById(element).innerHTML = value;
-					
-					if (value!= "Not Connected") {
-						document.getElementById(element).className = "badge badge-success";
-					}
-					else {
-						document.getElementById(element).className = "badge badge-danger";
-					}
-				}
-
-				
-				if (element == "Pi_Wifi_IP") {
-					$("#" + element).html(value);
-					if (len(value) >= 2) {
-						document.getElementById(element).className = "badge badge-success";
-						document.getElementById(element).innerHTML = value;
-					} else {
-						document.getElementById(element).className = "badge badge-danger";
-						document.getElementById(element).innerHTML = value;
-					}
-				}
-				
-				
-				if (element == "Pi_OS")
-				{
-					$("#" + element).html('   ' + value + '   ');
-
-				}
-
-				if (element == "MAVProxy_Status") {
-					$("#" + element).html(value);
-					if (value == "Running") {
-						document.getElementById(element).className = "badge badge-success";
-					} else {
-						document.getElementById(element).className = "badge badge-danger";
-					}
-				}
-
-				if (element == "Video_Status") {
-					$("#" + element).html(value);
-					if (value == "Running") {
-						document.getElementById(element).className = "badge badge-success";
-					} else {
-						document.getElementById(element).className = "badge badge-danger";
-					}
-				}
-
-				if (element == "Pixhawk_Status") {
-					$("#" + element).html(value);
-					if (value == "Connected") {
-						document.getElementById(element).className = "badge badge-success";
-					} else {
-						document.getElementById(element).className = "badge badge-danger";
-					}
-				}
-				
-		//ws.send(JSON.stringify({data:data}));
-            }
-            ws.onopen = function() {
-                // update the status div with the connection status
-                
-                //ws.send("Open for data");
-                console.log("connected");
-				sendData('getData');
-            }
-            ws.onclose = function() {
-                // update the status div with the connection status
-               
-                // in case of lost connection tries to reconnect every 3 secs
-                setTimeout(wsConnect,3000);
-            }
-        }
         
+       
+         $(document).ready(function() {
+			
+			var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
+			
+            function refreshPiData()
+            {
+                socket.emit('refreshPiData', {data: 'refresh'});
 
-		function sendData(command) {
-            if (ws) { ws.send(command); }
-        }
-		
+                setTimeout(refreshPiData, 4000);
+            }
+
+            //Refresh some of the Pi Data every 4 seconds. Not needed for everything.. and 1 second would be too much
+            refreshPiData();
+			
+			socket.on('connect', function() {
+                socket.emit('getPiData', {data: 'page_load'});
+				 //document.getElementById('ws_status').innerHTML = "Connected";
+				 //document.getElementById('ws_name').innerHTML = "Flask Websocket server";
+            });
+            
+            socket.on('Disk_Space', function(msg) {
+				console.log('recieved: Disk_Space');
+				//$('#log').append('<br>' + $('<div/>').text('UpTime #: ' + msg.data).html());
+				$('#Disk_Space').val(msg.data).trigger('change');
+				document.getElementById("Disk_Space_Label").innerHTML = msg.data;
+				$("#Disk_Space_Sub_Label").html('Root Partition');
+            });
+            
+            socket.on('Pi_OS', function(msg) {
+                console.log('received: Pi_OS')
+				$('#Pi_OS').html('   ' + msg.data + '   ');
+            });
+            
+            socket.on('CPU_Temp', function(msg) {
+                console.log("received: CPU_Temp")
+				$('#CPU_Temp').val(msg.data).trigger('change');
+				document.getElementById("CPU_Temp_Label").innerHTML = msg.data;
+				$("#CPU_Temp_Sub_Label").html('Live Value');
+			});
+            
+            socket.on('CPU_Mem', function(msg) {
+                console.log("received: CPU_Mem")
+                $('#CPU_Mem').val(msg.available).trigger('change');
+                document.getElementById("CPU_Mem_Label").innerHTML = msg.available; 
+				$("#CPU_Mem_Sub_Label").html(msg.total);
+			});
+            
+            
+	
+		});
     </script>
     </head>
-       <body onload="wsConnect();" onunload="ws.disconnect();">
+       <body>
         <!-- START PAGE CONTAINER -->
         <div class="page-container">
             
@@ -473,28 +409,6 @@
         </div>
         <!-- END MESSAGE BOX-->
 
-        <!-- START PRELOADS -->
-        <audio id="audio-alert" src="audio/alert.mp3" preload="auto"></audio>
-        <audio id="audio-fail" src="audio/fail.mp3" preload="auto"></audio>
-        <!-- END PRELOADS -->                 
-        
-    <!-- START SCRIPTS -->
-        <!-- START PLUGINS -->
-        <script type="text/javascript" src="js/plugins/jquery/jquery.min.js"></script>
-        <script type="text/javascript" src="js/plugins/jquery/jquery-ui.min.js"></script>
-        <script type="text/javascript" src="js/plugins/bootstrap/bootstrap.min.js"></script>    
-		<script type="text/javascript" src="js/plugins/knob/jquery.knob.min.js"></script>		
-        <!-- END PLUGINS -->
-
-        <!-- THIS PAGE PLUGINS -->
-
-        <!-- END PAGE PLUGINS -->         
-
-        <!-- START TEMPLATE -->
-        <script type="text/javascript" src="js/plugins.js"></script>        
-        <script type="text/javascript" src="js/actions.js"></script>        
-        <!-- END TEMPLATE -->
-    <!-- END SCRIPTS -->         
     </body>
 </html>
 

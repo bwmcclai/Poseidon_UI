@@ -43,12 +43,13 @@
             // Socket.IO will multiplex all those connections on a single
             // physical channel. If you don't care about multiple channels, you
             // can set the namespace to an empty string.
-            namespace = '/test';
+            //namespace = '/test';
 
             // Connect to the Socket.IO server.
             // The connection URL has the following format:
             //     http[s]://<domain>:<port>[/<namespace>]
-            var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace);
+            var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
+			
 
             // Event handler for new connections.
             // The callback function is invoked when a connection with the
@@ -96,13 +97,7 @@
                 $('#ping-pong').text(Math.round(10 * sum / ping_pong_times.length) / 10);
             });
 
-            // Handlers for the different forms in the page.
-            // These accept data from the user and send it to the server in a
-            // variety of ways
-            $('form#emit').submit(function(event) {
-                socket.emit('my_event', {data: $('#emit_data').val()});
-                return false;
-            });
+           
             
 
         });
