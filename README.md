@@ -46,23 +46,20 @@ When complete, you should be able to navigate to 192.168.2.2 in your web browser
 The UI should show 'Connected' and the UpTime counter running.  If it is, then you have completed the initial setup successfully.
 
 
-#### NEED to fix the items below
 
 #### Updating Code from the UI
 You can now check for updates and install them from the 'Configuration' section in the UI!  No SSH is needed.
 
 #### Updating Code Manually
-If you have already run the initial setup and are just looking to get the latest code, follow the instructions below.
+If you don't want to download and install updates from within the UI, follow the instructions below.
 
-Check the status of the repository vs what you currently have.
+######Check the status of the repository vs what you currently have.
 `cd Poseidon_UI`   
 `git status`
 
 ###### Execute Update Script
-Do a git pull and install the updates.
-`sudo git pull`
 `cd Poseidon_UI/scripts`   
-`bash reloadUI.sh`
+`bash update.sh`
 
 
 #####More Screenshots
