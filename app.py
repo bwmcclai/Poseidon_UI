@@ -74,12 +74,22 @@ def PiData(message):
     emit('Pi_OS',{'data': stat.os()})
     emit('CPU_Temp',{'data': stat.CPUTemp()})
     emit('CPU_Mem',{'available': stat.CPUMemPercent(),'total': stat.CPUMemTotal()})
+    emit('MAVProxy_Status',{'data': stat.MAVProxyStatus()})
+    emit('Video_Status',{'data': stat.videoStatus()})
+	
+    #note:  this was not returning anything for me.... need to revisit
+    emit('Pixhawk_Status',{'data': stat.pixhawkStatus()})
 
+#The Raspberry Pi page will request data refreshes every x seconds
 @socketio.on('refreshPiData')
 def refreshPiData(message):
     emit('CPU_Temp',{'data': stat.CPUTemp()})
     emit('CPU_Mem',{'available': stat.CPUMemPercent(),'total': stat.CPUMemTotal()})
-
+    emit('MAVProxy_Status',{'data': stat.MAVProxyStatus()})
+    emit('Video_Status',{'data': stat.videoStatus()})
+	
+    #note:  this was not returning anything for me.... need to revisit
+    emit('Pixhawk_Status',{'data': stat.pixhawkStatus()})
 
 
 if __name__ == '__main__':

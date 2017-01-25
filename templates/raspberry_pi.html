@@ -45,8 +45,8 @@
 			
             function refreshPiData()
             {
+                console.log('Refresh Data Requested')
                 socket.emit('refreshPiData', {data: 'refresh'});
-
                 setTimeout(refreshPiData, 4000);
             }
 
@@ -60,7 +60,6 @@
             });
             
             socket.on('Disk_Space', function(msg) {
-				console.log('recieved: Disk_Space');
 				//$('#log').append('<br>' + $('<div/>').text('UpTime #: ' + msg.data).html());
 				$('#Disk_Space').val(msg.data).trigger('change');
 				document.getElementById("Disk_Space_Label").innerHTML = msg.data;
@@ -68,24 +67,48 @@
             });
             
             socket.on('Pi_OS', function(msg) {
-                console.log('received: Pi_OS')
 				$('#Pi_OS').html('   ' + msg.data + '   ');
             });
             
             socket.on('CPU_Temp', function(msg) {
-                console.log("received: CPU_Temp")
 				$('#CPU_Temp').val(msg.data).trigger('change');
 				document.getElementById("CPU_Temp_Label").innerHTML = msg.data;
 				$("#CPU_Temp_Sub_Label").html('Live Value');
 			});
             
             socket.on('CPU_Mem', function(msg) {
-                console.log("received: CPU_Mem")
                 $('#CPU_Mem').val(msg.available).trigger('change');
                 document.getElementById("CPU_Mem_Label").innerHTML = msg.available; 
 				$("#CPU_Mem_Sub_Label").html(msg.total);
 			});
             
+            socket.on('MAVProxy_Status', function(msg) {
+                document.getElementById("MAVProxy_Status").innerHTML = msg.data; 
+                if (msg.data == "Running") {
+					document.getElementById('MAVProxy_Status').className = "badge badge-success";
+				} else {
+					document.getElementById('MAVProxy_Status').className = "badge badge-danger";
+				}
+			});
+            
+            socket.on('Video_Status', function(msg) {
+                document.getElementById("Video_Status").innerHTML = msg.data; 
+                if (msg.data == "Running") {
+					document.getElementById('Video_Status').className = "badge badge-success";
+				} else {
+					document.getElementById('Video_Status').className = "badge badge-danger";
+				}
+			});
+            
+            socket.on('Pixhawk_Status', function(msg) {
+                document.getElementById("Pixhawk_Status").innerHTML = msg.data; 
+                if (msg.data == "Connected") {
+					document.getElementById('Pixhawk_Status').className = "badge badge-success";
+				} else {
+					document.getElementById('Pixhawk_Status').className = "badge badge-danger";
+				}
+			});
+
             
 	
 		});
