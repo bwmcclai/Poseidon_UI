@@ -1,7 +1,4 @@
 #!/bin/bash
-sudo git reset --hard
-sudo git pull
-import time
-time.sleep(5)
+(cd /home/pi/Poseidon_UI && sudo git reset --hard)
+(cd /home/pi/Poseidon_UI && sudo git pull)
 sudo systemctl restart poseidon
-
