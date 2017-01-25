@@ -53,13 +53,7 @@
             //Refresh some of the Pi Data every 4 seconds. Not needed for everything.. and 1 second would be too much
             refreshPiData();
             
-            //Reboot and Shutdown commands
-            document.getElementById("btnPiShutdown").onclick = function () {
-                socket.emit('command_from_UI', {data: 'piShutdown'});
-            };
-			document.getElementById("btnPiReboot").onclick = function () { 
-                 socket.emit('command_from_UI', {data: 'piReboot'});
-            };
+            
             document.getElementById("btnReloadApp").onclick = function () { 
                  console.log('reload');
                  socket.emit('command_from_UI', {data: 'reloadUI'});
@@ -271,7 +265,7 @@
 					</div>
 					<div class="row">
 						<div class="col-md-6">   
-							<div class="panel panel-default panel-hidden-controls">
+							<div class="panel panel-success panel-hidden-controls">
 								<div class="panel-heading">
 									<h3 class="panel-title"><span class="fa fa-info-circle"></span> System Information</h3>                                
 									<ul class="panel-controls">
@@ -312,7 +306,7 @@
 						</div>
 						<div class="col-md-6">
 							<!-- Start WIFI Block -->
-                            <div class="panel panel-default panel-hidden-controls">
+                            <div class="panel panel-success panel-hidden-controls">
                                 <div class="panel-heading">
                                     <h3 class="panel-title"><span class="fa fa-rss"></span> Wifi</h3>                                  
                                     <ul class="panel-controls" style="margin-top: 2px;">
@@ -379,72 +373,7 @@
 						<div class="col-md-4"> 
 						</div>						
 						
-						<div class="col-md-4">   
-
-							<div class="panel panel-default panel-hidden-controls">
-									<div class="panel-heading">
-										<h3 class="panel-title"><span class="fa fa-shield"></span> Admin Functions</h3>                                
-										<ul class="panel-controls">
-											<li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>
-											<li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
-											<li><a href="#" class="panel-remove"><span class="fa fa-times"></span></a></li>
-										</ul>                                   
-									</div>
-									<div class="panel-body">
-										<ul class="list-group border-bottom">
-										<center>
-											<button type="button" class="btn btn-warning mb-control" data-box="#rebootPi_Box"><i class="fa fa-refresh">  Reboot Pi</i></button>											
-											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-											<button type="button" class="btn btn-danger mb-control" data-box="#shutdownPi_Box"><i class="fa fa-power-off">  Shutdown Pi</i></button>
-											</center>
-										</ul> 
-									</div>
-								</div>
-								
-								<!-- danger with sound -->
-								<div class="message-box message-box-warning animated fadeIn" data-sound="fail" id="rebootPi_Box">
-									<div class="mb-container">
-										<div class="mb-middle">
-											<div class="mb-title"><span class="fa fa-warning"></span> Are You Sure?</div>
-											<div class="mb-content">
-											<br /><br />
-												<p>The Raspberry Pi will now reboot safely.  You should not be in the middle of a dive!  It will take 1-2 minutes for this Ui to become available again.</p>         
-											<br /><br />												
-											</div>
-											<div class="mb-footer">
-												<button class="btn btn-default btn-lg mb-control-close">Cancel</button>
-												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-												<button class="btn btn-default btn-lg mb-control-close" id="btnPiReboot">Reboot</button>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!-- end danger with sound -->
-								
-								<!-- danger with sound -->
-								<div class="message-box message-box-danger animated fadeIn" data-sound="fail" id="shutdownPi_Box">
-									<div class="mb-container">
-										<div class="mb-middle">
-											<div class="mb-title"><span class="fa fa-warning"></span> Are You Sure?</div>
-											<div class="mb-content">
-											<br /><br />
-												<p>The Raspberry Pi will now shutdown safely.  This UI will become unavailable at this time.  Power will need to be reconnected to the Raspberry Pi to startup again.</p>    
-											<br /><br />
-											</div>
-											<div class="mb-footer">
-												<button class="btn btn-default btn-lg  mb-control-close">Cancel</button>
-												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-												<button class="btn btn-default btn-lg  mb-control-close" id="btnPiShutdown">Shutdown</button>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!-- end danger with sound -->
-
-
-							
-							<!-- END SETTINGS WIDGET -->
-						</div>
+						
 					</div>
 					
 					
