@@ -60,6 +60,10 @@
 			document.getElementById("btnPiReboot").onclick = function () { 
                  socket.emit('command_from_UI', {data: 'piReboot'});
             };
+            document.getElementById("btnReloadApp").onclick = function () { 
+                 console.log('reload');
+                 socket.emit('command_from_UI', {data: 'reloadUI'});
+            };
 			
             
             
@@ -152,7 +156,7 @@
                         </ul>
                     </li>
 					<li>
-						<a href="configuration"><span class="fa fa-cog"></span> <span class="xn-text">Configuration</span></a>
+						<a href="/configuration"><span class="fa fa-cog"></span> <span class="xn-text">Configuration</span></a>
 					</li>
 
                     
@@ -175,7 +179,12 @@
                     <li class="xn-icon-button">
                         <a href="#" class="x-navigation-minimize"><span class="fa fa-dedent"></span></a>
                     </li>
-                    <!-- END TOGGLE NAVIGATION -->                    
+                    <!-- END TOGGLE NAVIGATION -->  
+                    <!-- Restart Flask -->
+                    <li class="xn-icon-button pull-right">
+                        <a href="#" class="mb-control" data-box="#reload_app"><span class="fa fa-refresh"></span></a>                     
+                    </li> 
+                    
                 </ul>
                 <!-- END X-NAVIGATION VERTICAL -->                     
                 
@@ -434,6 +443,29 @@
                     <div class="mb-footer">
                         <div class="pull-right">
                             <a href="pages-login.html" class="btn btn-success btn-lg">Yes</a>
+                            <button class="btn btn-default btn-lg mb-control-close">No</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END MESSAGE BOX-->
+        
+        <!-- MESSAGE BOX-->
+        <div class="message-box animated fadeIn" data-sound="alert" id="reload_app">
+            <div class="mb-container">
+                <div class="mb-middle">
+                    <div class="mb-title"><span class="fa fa-sign-out"></span> Reload UI ?</div>
+                    <div class="mb-content">
+                        <p>Are you sure you want to reload the UI?</p>                    
+                        <p>This action pulls in any changes made to the code and makes them live.</p>
+                        <p>It can be used if you want to sideload changes not from github and need to reload.</p>
+                        <br /><br />
+                        <p><strong>After clicking Yes, you must manually refresh the webbrowser as well.</strong></p>
+                    </div>
+                    <div class="mb-footer">
+                        <div class="pull-right">
+                            <button class="btn btn-default btn-success btn-lg mb-control-close" id="btnReloadApp">Yes</button>
                             <button class="btn btn-default btn-lg mb-control-close">No</button>
                         </div>
                     </div>

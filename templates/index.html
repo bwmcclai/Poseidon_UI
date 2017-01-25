@@ -50,6 +50,19 @@
             //     http[s]://<domain>:<port>[/<namespace>]
             var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
 			
+            document.getElementById("btnReloadApp").onclick = function () { 
+                 console.log('reload');
+                 socket.emit('command_from_UI', {data: 'reloadUI'});
+            };
+            socket.on('my_response', function(msg) {
+                if (msg.data == 'reloadComplete') {
+                    console.log('reloadCompleted');
+                    //location.reload();
+                  }
+            });
+          
+    
+
 
             // Event handler for new connections.
             // The callback function is invoked when a connection with the
@@ -60,13 +73,7 @@
 				 //document.getElementById('ws_name').innerHTML = "Flask Websocket server";
             });
 
-            // Event handler for server sent data.
-            // The callback function is invoked whenever the server emits data
-            // to the client. The data is then displayed in the "Received"
-            // section of the page.
-            socket.on('my_response', function(msg) {
-                $('#log').append('<br>' + $('<div/>').text('Received #' + msg.count + ': ' + msg.data).html());
-            });
+
 			
 			socket.on('uptime', function(msg) {
 				//$('#log').append('<br>' + $('<div/>').text('UpTime #: ' + msg.data).html());
@@ -149,6 +156,11 @@
                         <a href="#" class="x-navigation-minimize"><span class="fa fa-dedent"></span></a>
                     </li>
                     <!-- END TOGGLE NAVIGATION -->
+                    
+                    <!-- Restart Flask -->
+                    <li class="xn-icon-button pull-right">
+                        <a href="#" class="mb-control" data-box="#reload_app"><span class="fa fa-refresh"></span></a>                     
+                    </li> 
 
                     
                     
@@ -245,10 +257,10 @@
                                         <li><a href="#" class="panel-remove"><span class="fa fa-times"></span></a></li>
                                     </ul>                                
                                 </div>
-                                <div class="panel-body" id="ui_Info">
+                                <div class="panel-body">
                                     Welcome to the new UI for ROV control and configuration.  This interface is hosted from the Raspberry Pi onboard the ROV.  It allows you to connect to the ROV on any device without the need to install any software. 
 									</br></br>To start with, the UI will mainly be used to configure subsystems, check system health, and view alarms and history. 
-									</br></br>More features are being added daily."
+									</br></br>More features are being added often!
                                 </div>      
                                 <div class="panel-footer">                                
                                     <!-- <button class="btn btn-primary pull-right" onclick='doit("button Press");'>Sample Send Data back to Node-Red</button> -->
@@ -269,7 +281,28 @@
         </div>
         <!-- END PAGE CONTAINER -->
 
-       
+        <!-- MESSAGE BOX-->
+        <div class="message-box animated fadeIn" data-sound="alert" id="reload_app">
+            <div class="mb-container">
+                <div class="mb-middle">
+                    <div class="mb-title"><span class="fa fa-sign-out"></span> Reload UI ?</div>
+                    <div class="mb-content">
+                        <p>Are you sure you want to reload the UI?</p>                    
+                        <p>This action pulls in any changes made to the code and makes them live.</p>
+                        <p>It can be used if you want to sideload changes not from github and need to reload.</p>
+                        <br /><br />
+                        <p><strong>After clicking Yes, you must manually refresh the webbrowser as well.</strong></p>
+                    </div>
+                    <div class="mb-footer">
+                        <div class="pull-right">
+                            <button class="btn btn-default btn-success btn-lg mb-control-close" id="btnReloadApp">Yes</button>
+                            <button class="btn btn-default btn-lg mb-control-close">No</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END MESSAGE BOX-->
 
        
         

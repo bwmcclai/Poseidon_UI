@@ -3,69 +3,72 @@
     <head>        
         <!-- META SECTION -->
         <title>Poseidon UI - Configuration</title>            
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <script type="text/javascript" type="text/javascript" href="{{ url_for('static', filename='js/socket.io.min.js') }}"></script>
+		<script type="text/javascript" type="text/javascript" href="{{ url_for('static', filename='js/angular.min.js') }}"></script>
+		<link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='faviconbr.ico') }}">
+		 <!-- START PRELOADS -->
+        <audio id="audio-alert" src="{{ url_for('static', filename='audio/alert.mp3') }}" preload="auto"></audio>
+        <audio id="audio-fail" src="{{ url_for('static', filename='audio/fail.mp3') }}" preload="auto"></audio>
+        <!-- END PRELOADS -->                  
         
-        <link rel="icon" href="faviconbr.ico" type="image/x-icon" />
-        <!-- END META SECTION -->
+		<!-- START SCRIPTS -->
+        <script type="text/javascript" src="{{ url_for('static', filename='js/plugins/jquery/jquery.min.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/plugins/jquery/jquery-ui.min.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/plugins/bootstrap/bootstrap.min.js') }}"></script>        
+        <script type='text/javascript' src="{{ url_for('static', filename='js/plugins/icheck/icheck.min.js') }}"></script>        
+        <script type="text/javascript" src="{{ url_for('static', filename='js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/plugins/scrolltotop/scrolltopcontrol.js') }}"></script>
+        
+        
+        <script type="text/javascript" src="{{ url_for('static', filename='js/plugins/rickshaw/d3.v3.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/plugins/rickshaw/rickshaw.min.js') }}"></script>            
+        <script type='text/javascript' src="{{ url_for('static', filename='js/plugins/bootstrap/bootstrap-datepicker.js') }}"></script>                
+        <script type="text/javascript" src="{{ url_for('static', filename='js/plugins/owl/owl.carousel.min.js') }}"></script>  
+		<script type="text/javascript" src="{{ url_for('static', filename='js/plugins/knob/jquery.knob.min.js') }}"></script>   		
+		        
+        
+        <script type="text/javascript" src="{{ url_for('static', filename='js/plugins/moment.min.js') }}"></script>  
+
+        <script type="text/javascript" src="{{ url_for('static', filename='js/plugins.js') }}"></script>        
+        <script type="text/javascript" src="{{ url_for('static', filename='js/actions.js') }}"></script>
+		<script type="text/javascript" src="{{ url_for('static', filename='js/socket.io.min.js') }}"></script>
+        
         
         <!-- CSS INCLUDE -->        
-        <link rel="stylesheet" type="text/css" id="theme" href="css/theme-default.css"/>
-        <!-- EOF CSS INCLUDE -->
+        <link rel="stylesheet" type="text/css" id="theme" href="{{ url_for('static', filename='css/theme-default.css') }}"/>
+        
 		<script type="text/javascript">
-        var ws;
-        var wsUri = "ws:";
-        var loc = window.location;
-        console.log(loc);
-        if (loc.protocol === "https:") { wsUri = "wss:"; }
-        // This needs to point to the web socket in the Node-RED flow
-		//wsUri += "//" + loc.host + loc.pathname.replace("index.html","ws/ui");
-		var wsName = "ws/ui";
-		wsUri +="//192.168.2.2:1880/" + wsName;
-		
-
-        function wsConnect() {
-            console.log("connect",wsUri);
-            ws = new WebSocket(wsUri);
-            //var line = "";    // either uncomment this for a building list of messages
-            ws.onmessage = function(msg) {
-                var line = "";  // or uncomment this to overwrite the existing message
-                // parse the incoming message as a JSON object
-                var data = msg.data;
-                 var element = data.split("=")[0]
-                var value = data.split("=")[1]
-
+                //save for later
+               //if (element == "Git_Status")
+				//{
+					//document.getElementById(element).innerHTML = value; 
+				//}
+			$(document).ready(function() {
 			
+			var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
+			
+            
+            //Reboot and Shutdown commands
+
+            document.getElementById("btnReloadApp").onclick = function () { 
+                 console.log('reload');
+                 socket.emit('command_from_UI', {data: 'reloadUI'});
+            };
+			
+            
+            
+			socket.on('connect', function() {
+                //socket.emit('getPiData', {data: 'page_load'});
+				 //document.getElementById('ws_status').innerHTML = "Connected";
+				 //document.getElementById('ws_name').innerHTML = "Flask Websocket server";
+            });
+            
+           
+            
+	
+		});	
 				
-          
-                if (element == "Git_Status")
-				{
-					document.getElementById(element).innerHTML = value; 
-					
-				}
-				
-				
-		//ws.send(JSON.stringify({data:data}));
-            }
-            ws.onopen = function() {
-                // update the status div with the connection status
-                
-                //ws.send("Open for data");
-                console.log("connected");
-				getData();
-            }
-            ws.onclose = function() {
-                // update the status div with the connection status
-               
-                // in case of lost connection tries to reconnect every 3 secs
-                setTimeout(wsConnect,3000);
-            }
-        }
-       
-		function sendData(command) {
-            if (ws) { ws.send(command); }
-        }
+		
 		
     </script>
     </head>
@@ -78,22 +81,22 @@
                 <!-- START X-NAVIGATION -->
                 <ul class="x-navigation">
                     <li class="xn-logo">
-                        <a href="index.html">Poseidon UI</a>
+                        <a href="/">Poseidon UI</a>
                         <a href="#" class="x-navigation-control"></a>
                     </li>
                     
                     <li class="xn-title">Navigation</li>
                     <li>
-                        <a href="index.html"><span class="fa fa-desktop"></span> <span class="xn-text">Dashboard</span></a>
+                        <a href="/"><span class="fa fa-desktop"></span> <span class="xn-text">Dashboard</span></a>
 						                         
                     </li>                    
                     <li class="xn-openable">
                         <a href="#"><span class="fa fa-cogs"></span> <span class="xn-text">Systems</span></a>
                         <ul>
-                            <a href=""><span class="fa fa-linux"></span> Raspberry Pi</a></li>
-                            <li><a href="index.html"><span class="fa fa-hdd-o"></span> Pixhawk</a></li>
-                            <li><a href="index.html"><span class="fa fa-anchor"></span> ROV</a></li>
-							<li><a href="index.html"><span class="fa fa-gamepad"></span> Controls</a></li>              
+                            <a href="/raspberry_pi"><span class="fa fa-linux"></span> Raspberry Pi</a></li>
+                            <li><a href="/"><span class="fa fa-hdd-o"></span> Pixhawk</a></li>
+                            <li><a href="/"><span class="fa fa-anchor"></span> ROV</a></li>
+							<li><a href="/"><span class="fa fa-gamepad"></span> Controls</a></li>              
                         </ul>
                     </li>
 					<li>
@@ -120,7 +123,13 @@
                     <li class="xn-icon-button">
                         <a href="#" class="x-navigation-minimize"><span class="fa fa-dedent"></span></a>
                     </li>
-                    <!-- END TOGGLE NAVIGATION -->                    
+                    <!-- END TOGGLE NAVIGATION -->   
+
+                      <!-- Restart Flask -->
+                    <li class="xn-icon-button pull-right">
+                        <a href="#" class="mb-control" data-box="#reload_app"><span class="fa fa-refresh"></span></a>                     
+                    </li> 
+
                 </ul>
                 <!-- END X-NAVIGATION VERTICAL -->                     
                 
@@ -155,7 +164,7 @@
                                 <div class="panel-body" >
                                     <div class="form-group"> 
 										<div class="col-md-12">
-                                                This section is for getting and updating the UI and Node-Red flows.
+                                                This section is for getting new code and updating the UI.
                                             </div>
 											<br /><br />
                                            <div class="col-md-3">
@@ -201,31 +210,31 @@
                 </div>
             </div>
         </div>
-		
-		
-
-        <!-- START PRELOADS -->
-        <audio id="audio-alert" src="audio/alert.mp3" preload="auto"></audio>
-        <audio id="audio-fail" src="audio/fail.mp3" preload="auto"></audio>
-        <!-- END PRELOADS -->                 
         
-    <!-- START SCRIPTS -->
-        <!-- START PLUGINS -->
-        <script type="text/javascript" src="js/plugins/jquery/jquery.min.js"></script>
-        <script type="text/javascript" src="js/plugins/jquery/jquery-ui.min.js"></script>
-        <script type="text/javascript" src="js/plugins/bootstrap/bootstrap.min.js"></script>    
-		<script type="text/javascript" src="js/plugins/knob/jquery.knob.min.js"></script>		
-        <!-- END PLUGINS -->
-
-        <!-- THIS PAGE PLUGINS -->
-
-        <!-- END PAGE PLUGINS -->         
-
-        <!-- START TEMPLATE -->
-        <script type="text/javascript" src="js/plugins.js"></script>        
-        <script type="text/javascript" src="js/actions.js"></script>        
-        <!-- END TEMPLATE -->
-    <!-- END SCRIPTS -->         
+        <!-- MESSAGE BOX-->
+        <div class="message-box animated fadeIn" data-sound="alert" id="reload_app">
+            <div class="mb-container">
+                <div class="mb-middle">
+                    <div class="mb-title"><span class="fa fa-sign-out"></span> Reload UI ?</div>
+                    <div class="mb-content">
+                        <p>Are you sure you want to reload the UI?</p>                    
+                        <p>This action pulls in any changes made to the code and makes them live.</p>
+                        <p>It can be used if you want to sideload changes not from github and need to reload.</p>
+                        <br /><br />
+                        <p><strong>After clicking Yes, you must manually refresh the webbrowser as well.</strong></p>
+                    </div>
+                    <div class="mb-footer">
+                        <div class="pull-right">
+                            <button class="btn btn-default btn-success btn-lg mb-control-close" id="btnReloadApp">Yes</button>
+                            <button class="btn btn-default btn-lg mb-control-close">No</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END MESSAGE BOX-->
+		
+     
     </body>
 </html>
 

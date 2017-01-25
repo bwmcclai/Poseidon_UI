@@ -33,17 +33,21 @@ def background_thread():
 			uptime_string = uptime_string.split('.')[0]
 			socketio.emit('uptime',{'data': uptime_string})
 
-
+## UI Pages ##
 @app.route('/')
 def index():
     return render_template('index.html', async_mode=socketio.async_mode)
 
 @app.route('/raspberry_pi')
 def raspberry_pi():
-    
     return render_template('raspberry_pi.html', async_mode=socketio.async_mode)
 
+@app.route('/configuration')
+def configuration():
+    return render_template('configuration.html', async_mode=socketio.async_mode)
 
+	
+## Communications ##
 @socketio.on('my_ping')
 def ping_pong():
     emit('my_pong')
@@ -61,17 +65,19 @@ def test_connect():
 def test_disconnect():
     print('Client disconnected', request.sid)
 
-@socketio.on('commandFromUI')
-def receivedCommand(message):
-    emit('my_repsonse',{'data': 'received: something'})
-    #result = subprocess.check_output("sudo reboot",shell=True)
 
+### Commands from UI ###
+#########################################################################################
 @socketio.on('command_from_UI')
 def command_message(message):
     if message['data'] == 'piReboot':
         os.system('sudo reboot')
     if message['data'] == 'piShutdown':
         os.system('sudo shutdown -r now')
+    if message['data'] == 'reloadUI':
+        os.system('sudo systemctl restart poseidon')
+        #emit('my_repsonse',{'data': 'reloadComplete'})
+
 		
 	#leave this here as an example
 	#session['receive_count'] = session.get('receive_count', 0) + 1
