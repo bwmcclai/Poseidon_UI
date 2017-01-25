@@ -54,6 +54,7 @@
                  socket.emit('command_from_UI', {data: 'reloadUI'});
             };
             document.getElementById("btnUpdateApp").onclick = function () { 
+                 $('#modal_git_check').modal('toggle');
                  socket.emit('command_from_UI', {data: 'updateApp'});
             };
             document.getElementById("btnGitStatus").onclick = function () { 
@@ -61,6 +62,9 @@
             };
             socket.on('gitStatusResponse', function(msg) {
                 document.getElementById('Git_Status').innerHTML = msg.data; 
+            });
+            socket.on('updateResults', function(msg) {
+                console.log(msg.data);
             });
 			
             
@@ -260,7 +264,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                         <button type="button" class="btn btn-info mb-control" data-box="#update_app"><i class="fa fa-cloud-download" data-dismiss="modal">  Download and Install Updates</i></button>
+                         <button type="button" class="btn btn-info mb-control" data-box="#update_app" data-dismiss="modal"><i class="fa fa-cloud-download">  Download and Install Updates</i></button>
 
                     </div>
                 </div>

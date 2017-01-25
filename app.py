@@ -82,9 +82,10 @@ def command_message(message):
 		results = 'Git status is still under development.  You can go ahead and download and install though if you know you want to do this.'
 		emit('gitStatusResponse',{'data': str(results)})
     if message['data'] == 'updateApp':
+		emit('updateResults',{'data': 'executed'})
 		result = subprocess.check_output("(cd /home/pi/Poseidon_UI/scripts && bash update.sh)",shell=True)
 		#result = 'ok'
-		#emit('gitStatusResponse',{'data': 'not ready yet'})
+		
 
 		
 	#leave this here as an example
