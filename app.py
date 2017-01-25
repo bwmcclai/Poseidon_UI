@@ -77,10 +77,14 @@ def command_message(message):
     if message['data'] == 'reloadUI':
         os.system('sudo systemctl restart poseidon')
         #emit('my_repsonse',{'data': 'reloadComplete'})
-    if message['data'] == 'gitStatus':
-		#result = subprocess.check_output("(cd Poseidon_UI && git status -s)",shell=True)
+    if message['data'] == 'checkForUpdates':
+		result = subprocess.check_output("(cd /home/pi/Poseidon_UI && git status)",shell=True)
+		results = 'Git status is still under development.  You can go ahead and download and install though if you know you want to do this.'
+		emit('gitStatusResponse',{'data': str(results)})
+    if message['data'] == 'updateApp':
+		result = subprocess.check_output("(cd /home/pi/Poseidon_UI/scripts && bash update.sh)",shell=True)
 		#result = 'ok'
-		emit('gitStatusResponse',{'data': 'not ready yet'})
+		#emit('gitStatusResponse',{'data': 'not ready yet'})
 
 		
 	#leave this here as an example

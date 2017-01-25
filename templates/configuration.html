@@ -53,11 +53,14 @@
             document.getElementById("btnReloadApp").onclick = function () { 
                  socket.emit('command_from_UI', {data: 'reloadUI'});
             };
+            document.getElementById("btnUpdateApp").onclick = function () { 
+                 socket.emit('command_from_UI', {data: 'updateApp'});
+            };
             document.getElementById("btnGitStatus").onclick = function () { 
-                 socket.emit('command_from_UI', {data: 'gitStatus'});
+                 socket.emit('command_from_UI', {data: 'checkForUpdates'});
             };
             socket.on('gitStatusResponse', function(msg) {
-                console.log(msg.data);
+                document.getElementById('Git_Status').innerHTML = msg.data; 
             });
 			
             
@@ -172,10 +175,12 @@
                                                 This section is for getting new code and updating the UI.
                                             </div>
 											<br /><br />
-                                           <div class="col-md-3">
+                                           <div class="col-md-2">
 										   </div>
-                                            <div class="col-md-6">
-                                                <button class="btn btn-primary btn-block" disabled="disabled" data-toggle="modal" data-target="#modal_git_check" id="btnGitStatus">Check for Updates</button>
+                                            <div class="col-md-8">
+                                                <!-- <button type="button" class="btn btn-info mb-control" data-box="#update_app"><i class="fa fa-cloud-download">  Download and Install Updates</i></button> -->
+                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_git_check" id="btnGitStatus"><i class="fa fa-github">  Check for Recent Updates</i></button>
+
 										
                                             </div>                                        
                                         </div>      
@@ -197,24 +202,27 @@
         </div>
         <!-- END PAGE CONTAINER -->
 
-		 <!-- MODALS -->        
-        <div class="modal" id="modal_git_check" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                        <h4 class="modal-title" id="defModalHead">Git Status</h4>
+		         
+        <!-- MESSAGE BOX-->
+        <div class="message-box animated fadeIn" data-sound="alert" id="update_app">
+            <div class="mb-container">
+                <div class="mb-middle">
+                    <div class="mb-title"><span class="fa fa-sign-out"></span> Are you sure?</div>
+                    <div class="mb-content">                 
+                        <p>This action does a git pull from the master branch in the repository.</p>
+                        <br /><br />
+                        <p><strong>After clicking Yes, you must manually refresh the webbrowser as well to make the changes live.</strong></p>
                     </div>
-                    <div class="modal-body" id="Git_Status">
-                        
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-						 <button class="btn btn-primary" data-dismiss="modal" onclick="sendData('Control_Update_Software');">Download and Install Updates</button>
+                    <div class="mb-footer">
+                        <div class="pull-right">
+                            <button class="btn btn-default btn-success btn-lg mb-control-close" id="btnUpdateApp">Yes</button>
+                            <button class="btn btn-default btn-lg mb-control-close">No</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        <!-- END MESSAGE BOX-->
         
         <!-- MESSAGE BOX-->
         <div class="message-box animated fadeIn" data-sound="alert" id="reload_app">
@@ -238,6 +246,26 @@
             </div>
         </div>
         <!-- END MESSAGE BOX-->
+        
+        <!-- MODALS -->        
+        <div class="modal" id="modal_git_check" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title" id="defModalHead">Git Status</h4>
+                    </div>
+                    <div class="modal-body" id="Git_Status">
+                        ...
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                         <button type="button" class="btn btn-info mb-control" data-box="#update_app"><i class="fa fa-cloud-download" data-dismiss="modal">  Download and Install Updates</i></button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
 		
      
     </body>
