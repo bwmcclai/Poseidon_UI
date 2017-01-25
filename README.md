@@ -11,12 +11,12 @@ Currently completed features are:
 - Raspberry Pi Status (cpu, gpu, temp, storage)
 - Raspberry Pi System Info (OS, Wifi Status)
 - Raspberry Pi Admin Functions (Reboot, Safe Shutdown)
+- Raspberry Pi Software Update (mostly to update this software itself)
 
 The anticipated upcoming features are :
 - Wifi Configuration of the Pi (to connect to internet at home and download updates)
 - Pixhawk Firmware Update
 - Pixhawk Status (Alive, Firmware Version, etc.)
-- Raspberry Pi Software Update (mostly to update this software itself)
 - Camera Config (RPi camera settings, external camera config)
 - Configuration of Sensors (sonar connected to USB, etc.)
 - Download of QGC binaries for in-field installs

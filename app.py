@@ -5,10 +5,12 @@ from flask_socketio import SocketIO, emit, join_room, leave_room, \
 import subprocess
 import os
 from api import status
+from api import wifi
 
 
 
 stat = status.Status()
+wifistat = wifi.Status()
 
 # Set this variable to "threading", "eventlet" or "gevent" to test the
 # different async modes, or leave it set to None for the application to choose
@@ -19,7 +21,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
 socketio = SocketIO(app, async_mode=async_mode)
 thread = None
-thread5 = None
+
 
 
 def background_thread():
@@ -101,23 +103,21 @@ def PiData(message):
     emit('Disk_Space',{'data': stat.diskSpace()})
     emit('Pi_OS',{'data': stat.os()})
     emit('CPU_Temp',{'data': stat.CPUTemp()})
-    emit('CPU_Mem',{'available': stat.CPUMemPercent(),'total': stat.CPUMemTotal()})
+    emit('CPU_Mem',{'available': stat.CPUMem()[0],'total': stat.CPUMem()[1]})
     emit('MAVProxy_Status',{'data': stat.MAVProxyStatus()})
     emit('Video_Status',{'data': stat.videoStatus()})
-	
-    #note:  this was not returning anything for me.... need to revisit
     emit('Pixhawk_Status',{'data': stat.pixhawkStatus()})
+    emit('Wifi_Network',{'network': wifistat.networkInfo()[0],'signal': wifistat.networkInfo()[1],'ip': wifistat.networkInfo()[2]})
 
 #The Raspberry Pi page will request data refreshes every x seconds
 @socketio.on('refreshPiData')
 def refreshPiData(message):
     emit('CPU_Temp',{'data': stat.CPUTemp()})
-    emit('CPU_Mem',{'available': stat.CPUMemPercent(),'total': stat.CPUMemTotal()})
+    emit('CPU_Mem',{'available': stat.CPUMem()[0],'total': stat.CPUMem()[1]})
     emit('MAVProxy_Status',{'data': stat.MAVProxyStatus()})
     emit('Video_Status',{'data': stat.videoStatus()})
-	
-    #note:  this was not returning anything for me.... need to revisit
     emit('Pixhawk_Status',{'data': stat.pixhawkStatus()})
+    emit('Wifi_Network',{'network': wifistat.networkInfo()[0],'signal': wifistat.networkInfo()[1],'ip': wifistat.networkInfo()[2]})
 
 
 if __name__ == '__main__':

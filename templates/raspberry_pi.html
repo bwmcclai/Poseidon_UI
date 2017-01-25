@@ -73,6 +73,30 @@
 				 //document.getElementById('ws_name').innerHTML = "Flask Websocket server";
             });
             
+            socket.on('Wifi_Network', function(msg) {
+                //signal
+                $('#Wifi_Signal').css('width', msg.signal + '%');
+                document.getElementById("Wifi_Signal_Label").innerHTML = msg.signal + '%';
+                
+                //network name
+                document.getElementById("Pi_Wifi_Network").innerHTML = msg.network;
+                if (msg.network!= "Not Connected") {
+						document.getElementById("Pi_Wifi_Network").className = "badge badge-success";
+				}
+				else {
+					document.getElementById("Pi_Wifi_Network").className = "badge badge-danger";
+				}
+                
+                //ip address
+                $("#Pi_Wifi_IP").html(msg.ip);
+                
+            });
+            
+            
+            
+            
+				
+            
             socket.on('Disk_Space', function(msg) {
 				//$('#log').append('<br>' + $('<div/>').text('UpTime #: ' + msg.data).html());
 				$('#Disk_Space').val(msg.data).trigger('change');

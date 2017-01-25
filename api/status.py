@@ -14,12 +14,6 @@ class Status:
 		self.px.start()
 		self.cm.start()
 
-
-	def ipAddress(self,ifname):
-		a = subprocess.check_output('ifconfig wlan0 | grep -w inet', shell=True)
-		i = a.find("inet")
-		a = a[i+5:i+18]
-		return a
 		
 	def diskSpace(self):
 		result = subprocess.check_output("df -hl | grep '/dev/root'", shell=True)
@@ -36,14 +30,15 @@ class Status:
 		data = round((float(result.replace("temp=","").replace("'C\n",""))* 1.8) + 32)
 		return data
 			
-	def CPUMemPercent(self):
+	def CPUMem(self):
 		result = subprocess.check_output("free -h",shell=True)
 		totalMemStr = result.split("\n")[1].split(" ")[10]
 		availableMemStr = result.split("\n")[1].split(" ")[17]
 		totalMemVal = totalMemStr[:-1]
 		availMemVal = availableMemStr[:-1]
 		percent = round(((float(availMemVal) / float(totalMemVal))*100),2)
-		return percent
+		TotalMem = availableMemStr + " of " + totalMemStr
+		return percent, TotalMem
     
 		return {'totalMem': TotalMem, 'percent': percent }
 	def CPUMemTotal(self):
