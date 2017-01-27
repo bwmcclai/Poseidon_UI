@@ -33,7 +33,11 @@ class Status:
 		except:
 			network = 'Not Connected'
 			signal = 0
+			ip = ''
 		return network, signal, ip
+		
+		
+		
 
 if __name__ == "__main__":
 	pass
