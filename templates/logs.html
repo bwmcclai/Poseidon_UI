@@ -47,44 +47,31 @@
 			
 			var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
 			
-            
-            //Reboot and Shutdown commands
-            document.getElementById("btnPiShutdown").onclick = function () {
-                socket.emit('command_from_UI', {data: 'piShutdown'});
-            };
-			document.getElementById("btnPiReboot").onclick = function () { 
-                 socket.emit('command_from_UI', {data: 'piReboot'});
-            };
 
-            document.getElementById("btnReloadApp").onclick = function () { 
-                 socket.emit('command_from_UI', {data: 'reloadUI'});
-            };
-            document.getElementById("btnUpdateApp").onclick = function () { 
-                 $('#modal_git_check').modal('toggle');
-                 socket.emit('command_from_UI', {data: 'updateApp'});
-            };
-            document.getElementById("btnGitStatus").onclick = function () { 
-                 socket.emit('command_from_UI', {data: 'checkForUpdates'});
-            };
-            socket.on('gitStatusResponse', function(msg) {
-                document.getElementById('Git_Status').innerHTML = msg.data; 
-            });
-            socket.on('updateResults', function(msg) {
+            socket.on('logsList', function(msg) {
                 console.log(msg.data);
+                var path = msg.data;
+                
+                $('#logsTable').append('<tr><td style="vertical-align:middle" id=' + msg.data + '><center><strong>' + msg.data + '</strong></center></td><td><center><button type="button" class="btn btn-primary" onclick="downloadLog(' + JSON.stringify(path).replace(/"/g,"&quot;") + ');"><i class="fa fa-download">  Download File</i></button></center></td></tr>');
+
             });
 			
-            
+
             
 			socket.on('connect', function() {
-                //socket.emit('getPiData', {data: 'page_load'});
-				 //document.getElementById('ws_status').innerHTML = "Connected";
-				 //document.getElementById('ws_name').innerHTML = "Flask Websocket server";
+                socket.emit('command_from_UI', {data: 'getLogs'});
+
             });
             
            
-            
-	
 		});	
+        
+        function downloadLog(path) {
+                var name = path.split("/");
+                name = name[name.length-1];
+              window.location = '/downloadLog?path=' + path + '&name=' + name;
+            };
+         
 				
 		
 		
@@ -114,13 +101,13 @@
                              <li><a href="/raspberry_pi"><span class="fa fa-linux"></span> Raspberry Pi</a></li>
                             <li><a href="/"><span class="fa fa-hdd-o"></span> Pixhawk</a></li>
                             <li><a href="/"><span class="fa fa-anchor"></span> ROV</a></li>
-                            <li><a href="/"><span class="fa fa-gamepad"></span> Controls</a></li>    
-                                   
+							<li><a href="/"><span class="fa fa-gamepad"></span> Controls</a></li> 
+                                            
                         </ul>
                     </li>
-                    <li><a href="/logs"><span class="fa fa-file-text-o"></span> Dive Logs</a></li>     
 					<li>
-						<li class="active"><a href="configuration.html"><span class="fa fa-cog"></span> <span class="xn-text">Configuration</span></a>
+                        <li class="active"><a href="/logs"><span class="fa fa-file-text-o"></span> Dive Logs</a></li>             
+						<li><a href="/configuration"><span class="fa fa-cog"></span> <span class="xn-text">Configuration</span></a>
 					</li>
 
                     
@@ -156,23 +143,22 @@
                 <!-- START BREADCRUMB -->
                 <ul class="breadcrumb">
                     <li><a href="index.html">Home</a></li>                    
-                    <li class="active">Configuration</li>
+                    <li class="active">Dive Logs</li>
 					
                 </ul>
                 <!-- END BREADCRUMB -->                
                 
                 <div class="page-title">                    
-                    <h2><span class="fa fa-cog"></span> Configuration</h2>
+                    <h2><span class="fa fa-file-text-o"></span> Dive Logs</h2>
                 </div>                   
                 
                 <!-- PAGE CONTENT WRAPPER -->
                 <div class="page-content-wrap">
                     <div class="row">
-						<div class="col-md-6">
+						<div class="col-md-12">
 							<!-- START PANEL WITH HIDDEN CONTROLS -->
                             <div class="panel panel-success panel-hidden-controls">
                                 <div class="panel-heading">
-                                    <h2 class="panel-title"><span class="fa fa-cloud-download"></span> UI Software</h2>
                                     <ul class="panel-controls">
                                         <li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>
 										<li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
@@ -180,92 +166,25 @@
                                     </ul>                                
                                 </div>
                                 <div class="panel-body" >
-                                    <div class="form-group"> 
-										<div class="col-md-12">
-                                                You can now update the software from within the UI!
-                                            </div>
-											<br /><br />
-                                           <div class="col-md-3">
-										   </div>
-                                            <div class="col-md-8">
-                                                <!-- <button type="button" class="btn btn-info mb-control" data-box="#update_app"><i class="fa fa-cloud-download">  Download and Install Updates</i></button> -->
-                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_git_check" id="btnGitStatus"><i class="fa fa-github">  Check for Software Updates</i></button>
-
-										
-                                            </div>                                        
-                                        </div>      
+                                    <div class="panel-body panel-body-table">
+									
+									<div class="table-responsive">
+                                        <table class="table table-bordered table-striped">
+                                            
+                                            <tbody id="logsTable"
+                                               
+                                                
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    
+                                </div>  
                                 </div>      
                                 <div class="panel-footer">                                
                                     <!-- <button class="btn btn-primary pull-right" onclick='doit("button Press");'>Sample Send Data back to Node-Red</button> -->
                                 </div>                            
                             </div>
                             <!-- END PANEL WITH HIDDEN CONTROLS -->
-						</div>
-                        <div class="col-md-6">   
-
-							<div class="panel panel-success panel-hidden-controls">
-									<div class="panel-heading">
-										<h3 class="panel-title"><span class="fa fa-shield"></span> Admin Functions</h3>                                
-										<ul class="panel-controls">
-											<li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>
-											<li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
-											<li><a href="#" class="panel-remove"><span class="fa fa-times"></span></a></li>
-										</ul>                                   
-									</div>
-									<div class="panel-body">
-										<ul class="list-group border-bottom">
-										<center>
-											<button type="button" class="btn btn-warning mb-control" data-box="#rebootPi_Box"><i class="fa fa-refresh">  Reboot Pi</i></button>											
-											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-											<button type="button" class="btn btn-danger mb-control" data-box="#shutdownPi_Box"><i class="fa fa-power-off">  Shutdown Pi</i></button>
-											</center>
-										</ul> 
-									</div>
-								</div>
-								
-								<!-- danger with sound -->
-								<div class="message-box message-box-warning animated fadeIn" data-sound="fail" id="rebootPi_Box">
-									<div class="mb-container">
-										<div class="mb-middle">
-											<div class="mb-title"><span class="fa fa-warning"></span> Are You Sure?</div>
-											<div class="mb-content">
-											<br /><br />
-												<p>The Raspberry Pi will now reboot safely.  You should not be in the middle of a dive!  It will take 1-2 minutes for this Ui to become available again.</p>         
-											<br /><br />												
-											</div>
-											<div class="mb-footer">
-												<button class="btn btn-default btn-lg mb-control-close">Cancel</button>
-												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-												<button class="btn btn-default btn-lg mb-control-close" id="btnPiReboot">Reboot</button>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!-- end danger with sound -->
-								
-								<!-- danger with sound -->
-								<div class="message-box message-box-danger animated fadeIn" data-sound="fail" id="shutdownPi_Box">
-									<div class="mb-container">
-										<div class="mb-middle">
-											<div class="mb-title"><span class="fa fa-warning"></span> Are You Sure?</div>
-											<div class="mb-content">
-											<br /><br />
-												<p>The Raspberry Pi will now shutdown safely.  This UI will become unavailable at this time.  Power will need to be reconnected to the Raspberry Pi to startup again.</p>    
-											<br /><br />
-											</div>
-											<div class="mb-footer">
-												<button class="btn btn-default btn-lg  mb-control-close">Cancel</button>
-												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-												<button class="btn btn-default btn-lg  mb-control-close" id="btnPiShutdown">Shutdown</button>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!-- end danger with sound -->
-
-
-							
-							<!-- END SETTINGS WIDGET -->
 						</div>
 						
                     </div>

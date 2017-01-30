@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from flask import Flask, render_template, session, request
+from flask import Flask, render_template, session, request, send_file
 from flask_socketio import SocketIO, emit, join_room, leave_room, \
     close_room, rooms, disconnect
 import subprocess
@@ -48,6 +48,9 @@ def raspberry_pi():
 def configuration():
     return render_template('configuration.html', async_mode=socketio.async_mode)
 
+@app.route('/logs')
+def logs():
+    return render_template('logs.html', async_mode=socketio.async_mode)
 	
 ## Communications ##
 @socketio.on('my_ping')
@@ -87,8 +90,24 @@ def command_message(message):
 		emit('updateResults',{'data': 'executed'})
 		result = subprocess.check_output("(cd /home/pi/Poseidon_UI/scripts && bash update.sh)",shell=True)
 		#result = 'ok'
+	
+    if message['data'] == 'getLogs':
+		cmd = 'sudo find / -name "*.tlog"'
+		ls = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE)
+		for log in ls.stdout:
+			emit('logsList',{'data':log})
 		
 
+@app.route('/downloadLog', methods=['GET'])
+def download_log():
+    path = request.args.get('path')
+    #path = '/home/pi/companion/component.tlog'
+    name = request.args.get('name')
+    #name = 'component.tlog'
+    return send_file(path,
+                     mimetype='text/tlog',
+                     attachment_filename=name,
+                     as_attachment=True)
 		
 	#leave this here as an example
 	#session['receive_count'] = session.get('receive_count', 0) + 1
