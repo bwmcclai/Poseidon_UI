@@ -36,7 +36,7 @@ On your Raspberry Pi, execute the following command to get the code.
 `sudo git clone http://github.com/bwmcclai/Poseidon_UI`
 
 ###### Run the Setup script
-`cd Poseidon_UI`
+`cd Poseidon_UI/scripts`
 `sudo bash setup.sh`
 
 This will install flask, supervisor, and auto start on boot as well as move all files to their proper locations.  It will take a few minutes.
